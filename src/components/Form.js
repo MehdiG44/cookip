@@ -13,20 +13,23 @@ const Form = () => {
     event.preventDefault();
     if (!companyName || !privacyPolicyLink) return;
 
-    const searchParams = new URLSearchParams();
-    searchParams.append("overlay", overlay);
-    searchParams.append("privacy_policy_link", privacyPolicyLink);
-    searchParams.append("company_name", companyName);
-    const url = `${window.location.origin}/cookie_banner.js?${searchParams}`;
-    setScript(`<script type="text/javascript" src=${url}></script>`);
+    const url = `${window.location.href}banner.js`;
+    const attributes = `data-overlay=${overlay} data-privacy-policy-link=${privacyPolicyLink} data-company-name=${companyName}`;
+    setScript(
+      `<script id="cookie-consent-script" type="text/javascript" src=${url} ${attributes}></script>`
+    );
     setSrc(url);
   };
 
   const copyScriptAndPreview = () => {
     navigator.clipboard.writeText(script);
     const scriptElement = document.createElement("script");
+    scriptElement.id = "cookie-consent-script";
     scriptElement.type = "text/javascript";
     scriptElement.src = src;
+    scriptElement.setAttribute("data-overlay", overlay);
+    scriptElement.setAttribute("data-privacy-policy-link", privacyPolicyLink);
+    scriptElement.setAttribute("data-company-name", companyName);
     setScript("");
     document.head.appendChild(scriptElement);
   };

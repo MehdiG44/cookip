@@ -13,7 +13,7 @@ const Form = () => {
     event.preventDefault();
     if (!companyName || !privacyPolicyLink) return;
 
-    const url = `${window.location.href}banner.js`;
+    const url = `${window.location.href}/banner.js`;
     const attributes = `data-overlay=${overlay} data-privacy-policy-link=${privacyPolicyLink} data-company-name=${companyName}`;
     setScript(
       `<script id="cookie-consent-script" type="text/javascript" src=${url} ${attributes}></script>`

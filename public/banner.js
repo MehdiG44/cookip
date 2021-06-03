@@ -1,5 +1,7 @@
 (() => {
   const script = document.getElementById("cookie-consent-script");
+  let activeCategory;
+  const setActiveCategory = (newState) => (activeCategory = newState);
 
   let cookieOptions = {
     statistics: null,
@@ -95,7 +97,7 @@
 
   const optionSelector = (name) => {
     const selectorContainer = document.createElement("div");
-    selectorContainer.style.cssText = "display:flex;";
+    selectorContainer.style.cssText = "display:flex;align-self:flex-start;";
 
     const checkButton = document.createElement("button");
     checkButton.textContent = "✓";
@@ -126,6 +128,24 @@
     return selectorContainer;
   };
 
+  const handleCategoryDetail = (category, detail, carret) => {
+    if (activeCategory) {
+      activeCategory.carret.style.cssText =
+        activeCategory.carret.style.cssText + "transform: rotate(90deg);";
+      activeCategory.detail.style.cssText =
+        activeCategory.detail.style.cssText + "max-height:0;";
+
+      if (activeCategory.category === category) {
+        setActiveCategory();
+        return;
+      }
+    }
+
+    carret.style.cssText = carret.style.cssText + "transform: rotate(180deg);";
+    detail.style.cssText = detail.style.cssText + "max-height:110px;";
+    setActiveCategory({ category: category, detail: detail, carret: carret });
+  };
+
   const container = document.createElement("div");
   container.style.cssText =
     "position:fixed;top:0;height;100%;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.7);display:flex;align-items:flex-end";
@@ -142,41 +162,141 @@
   title.textContent = "Experience de navigation";
   title.style.cssText = "font-size: 20px;font-weight: bold";
 
-  const technicalCookieText = document.createElement("h5");
-  technicalCookieText.textContent = "Cookies techniques";
-  technicalCookieText.style.cssText = "width:200px;font-size:14px;";
+  const technicalCookieDetail = document.createElement("div");
+  technicalCookieDetail.style.cssText =
+    "flex-basis: 100%;font-weight:normal;margin-top:4px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
+  technicalCookieDetail.textContent =
+    "Ces cookies sont nécessaires au bon fonctionnement du site ainsi qu’à la conservation de votre consentement en matière de cookies. Ils sont requis et ne peuvent être désactivés.";
+
+  const technicalCookieCarret = document.createElement("span");
+  technicalCookieCarret.textContent = "^";
+  technicalCookieCarret.style.cssText =
+    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: #d97706;height:20px;line-height:30px;transition:transform 300ms linear 0s;";
+
+  const technicalCookieTextContent = document.createElement("span");
+  technicalCookieTextContent.textContent = "Cookies techniques";
+  technicalCookieTextContent.style.cssText = "margin-left: 12px;";
+
+  const technicalCookieText = document.createElement("a");
+  technicalCookieText.style.cssText =
+    "width:200px;font-size:14px;display:flex;align-items:center;cursor:pointer;";
+  technicalCookieText.append(technicalCookieCarret, technicalCookieTextContent);
 
   const technicalCookie = document.createElement("div");
   technicalCookie.style.cssText =
-    "margin:16px 0;display:flex;align-items:center;justify-content:space-around;font-weight:bold;";
-  technicalCookie.append(technicalCookieText, optionSelector("technical"));
+    "margin:16px 0;display:flex;align-items:center;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
+  technicalCookie.append(
+    technicalCookieText,
+    optionSelector("technical"),
+    technicalCookieDetail
+  );
+  technicalCookieText.onclick = () =>
+    handleCategoryDetail(
+      technicalCookie,
+      technicalCookieDetail,
+      technicalCookieCarret
+    );
 
-  const statisticCookieText = document.createElement("h5");
-  statisticCookieText.textContent = "Mesure d'audience";
-  statisticCookieText.style.cssText = "width:200px;font-size:14px;";
+  const statisticCookieDetail = document.createElement("div");
+  statisticCookieDetail.style.cssText =
+    "flex-basis: 100%;font-weight:normal;margin-top:4px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
+  statisticCookieDetail.textContent =
+    "Ces cookies nous permettent de comprendre comment vous naviguez sur notre site et d'en suivre la fréquentation. Vous nous aidez ainsi à mesurer la performance du site et à améliorer la qualité de nos services.";
+
+  const statisticCookieCarret = document.createElement("span");
+  statisticCookieCarret.textContent = "^";
+  statisticCookieCarret.style.cssText =
+    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: #d97706;height:20px;line-height:30px;transition:transform 300ms linear 0s;";
+
+  const statisticCookieTextContent = document.createElement("span");
+  statisticCookieTextContent.textContent = "Mesure d'audience";
+  statisticCookieTextContent.style.cssText = "margin-left: 12px;";
+
+  const statisticCookieText = document.createElement("a");
+  statisticCookieText.style.cssText =
+    "width:200px;font-size:14px;display: flex;align-items: center;cursor:pointer;";
+  statisticCookieText.append(statisticCookieCarret, statisticCookieTextContent);
 
   const statisticCookie = document.createElement("div");
   statisticCookie.style.cssText =
-    "margin:16px 0;display:flex;align-items:center;justify-content:space-around;font-weight:bold;";
-  statisticCookie.append(statisticCookieText, optionSelector("statistics"));
+    "margin:16px 0;display:flex;align-items:center;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
+  statisticCookie.append(
+    statisticCookieText,
+    optionSelector("statistics"),
+    statisticCookieDetail
+  );
+  statisticCookieText.onclick = () =>
+    handleCategoryDetail(
+      statisticCookie,
+      statisticCookieDetail,
+      statisticCookieCarret
+    );
 
-  const adCookieText = document.createElement("h5");
-  adCookieText.textContent = "Publicité personnalisée";
-  adCookieText.style.cssText = "width:200px;font-size:14px;";
+  const adCookieDetail = document.createElement("div");
+  adCookieDetail.style.cssText =
+    "flex-basis: 100%;font-weight:normal;margin-top:4px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
+  adCookieDetail.textContent =
+    "Ces cookies permettent à nos partenaires de vous proposer des publicités plus pertinentes sur Internet. Ils permettent la collecte et le traitement de données d'utilisation du site afin de vous proposer des publicités sur des sites ou applications tierces. Ce choix n'impactera pas le nombre de publicités que vous verrez sur Internet.";
+
+  const adCookieCarret = document.createElement("span");
+  adCookieCarret.textContent = "^";
+  adCookieCarret.style.cssText =
+    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: #d97706;height:20px;line-height:30px;transition:transform 300ms linear 0s;";
+
+  const adCookieTextContent = document.createElement("span");
+  adCookieTextContent.textContent = "Publicité personnalisée";
+  adCookieTextContent.style.cssText = "margin-left: 12px;";
+
+  const adCookieText = document.createElement("a");
+  adCookieText.style.cssText =
+    "width:200px;font-size:14px;display: flex;align-items: center;cursor:pointer;";
+  adCookieText.append(adCookieCarret, adCookieTextContent);
 
   const adCookie = document.createElement("div");
   adCookie.style.cssText =
-    "margin:16px 0;display:flex;align-items:center;justify-content:space-around;font-weight:bold;";
-  adCookie.append(adCookieText, optionSelector("personnalization"));
+    "margin:16px 0;display:flex;align-items:center;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
+  adCookie.append(
+    adCookieText,
+    optionSelector("personnalization"),
+    adCookieDetail
+  );
+  adCookieText.onclick = () =>
+    handleCategoryDetail(adCookie, adCookieDetail, adCookieCarret);
 
-  const adStatisticCookieText = document.createElement("h5");
-  adStatisticCookieText.textContent = "Mesure de performance publicitaire";
-  adStatisticCookieText.style.cssText = "width:200px;font-size:14px;";
+  const adStatisticCookieDetail = document.createElement("div");
+  adStatisticCookieDetail.style.cssText =
+    "flex-basis: 100%;font-weight:normal;margin-top:4px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
+  adStatisticCookieDetail.textContent =
+    "Ces cookies permettent la collecte et le traitement de données d'utilisation du site afin de mesurer la performance de nos campagnes publicitaires et de partager ces données avec nos partenaires. Ce choix n'impactera pas le nombre de publicités que vous verrez sur Internet.";
+
+  const adStatisticCarret = document.createElement("span");
+  adStatisticCarret.textContent = "^";
+  adStatisticCarret.style.cssText =
+    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: #d97706;height:20px;line-height:30px;transition:transform 300ms linear 0s;";
+
+  const adStatisticTextContent = document.createElement("span");
+  adStatisticTextContent.textContent = "Mesure de performance publicitaire";
+  adStatisticTextContent.style.cssText = "margin-left: 12px;";
+
+  const adStatisticCookieText = document.createElement("a");
+  adStatisticCookieText.style.cssText =
+    "width:200px;font-size:14px;display: flex;align-items: center;cursor:pointer;";
+  adStatisticCookieText.append(adStatisticCarret, adStatisticTextContent);
 
   const adStatisticCookie = document.createElement("div");
   adStatisticCookie.style.cssText =
-    "margin:16px 0;display:flex;align-items:center;justify-content:space-around;font-weight:bold;";
-  adStatisticCookie.append(adStatisticCookieText, optionSelector("marketing"));
+    "margin:16px 0;display:flex;align-items:center;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
+  adStatisticCookie.append(
+    adStatisticCookieText,
+    optionSelector("marketing"),
+    adStatisticCookieDetail
+  );
+  adStatisticCookieText.onclick = () =>
+    handleCategoryDetail(
+      adStatisticCookie,
+      adStatisticCookieDetail,
+      adStatisticCarret
+    );
 
   const optionsContainer = document.createElement("div");
   optionsContainer.append(

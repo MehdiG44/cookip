@@ -151,8 +151,9 @@
     "position:fixed;top:0;height;100%;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.7);display:flex;align-items:flex-end";
 
   const banner = document.createElement("div");
-  banner.style.cssText =
-    "background-color:white;padding:24px;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;";
+  const bannerPadding =
+    window.screen.width < 700 ? "padding:1em;" : "padding:2em 3em;";
+  banner.style.cssText = `${bannerPadding};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;`;
 
   const header = document.createElement("div");
   header.style.cssText =

@@ -1,5 +1,6 @@
 (() => {
   const script = document.getElementById("cookie-consent-script");
+  const color = script.getAttribute("data-color");
   let activeCategory;
   const setActiveCategory = (newState) => (activeCategory = newState);
 
@@ -171,8 +172,7 @@
 
   const technicalCookieCarret = document.createElement("span");
   technicalCookieCarret.textContent = "^";
-  technicalCookieCarret.style.cssText =
-    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: #d97706;height:20px;line-height:30px;transition:transform 300ms linear 0s;";
+  technicalCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
 
   const technicalCookieTextContent = document.createElement("span");
   technicalCookieTextContent.textContent = "Cookies techniques";
@@ -210,8 +210,7 @@
 
   const statisticCookieCarret = document.createElement("span");
   statisticCookieCarret.textContent = "^";
-  statisticCookieCarret.style.cssText =
-    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: #d97706;height:20px;line-height:30px;transition:transform 300ms linear 0s;";
+  statisticCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
 
   const statisticCookieTextContent = document.createElement("span");
   statisticCookieTextContent.textContent = "Mesure d'audience";
@@ -249,8 +248,7 @@
 
   const adCookieCarret = document.createElement("span");
   adCookieCarret.textContent = "^";
-  adCookieCarret.style.cssText =
-    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: #d97706;height:20px;line-height:30px;transition:transform 300ms linear 0s;";
+  adCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
 
   const adCookieTextContent = document.createElement("span");
   adCookieTextContent.textContent = "Publicité personnalisée";
@@ -281,8 +279,7 @@
 
   const adStatisticCarret = document.createElement("span");
   adStatisticCarret.textContent = "^";
-  adStatisticCarret.style.cssText =
-    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: #d97706;height:20px;line-height:30px;transition:transform 300ms linear 0s;";
+  adStatisticCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
 
   const adStatisticTextContent = document.createElement("span");
   adStatisticTextContent.textContent = "Mesure de performance publicitaire";
@@ -322,8 +319,7 @@
 
   const optionsButton = document.createElement("button");
   optionsButton.textContent = "Options";
-  optionsButton.style.cssText =
-    "color:#d97706;font-weight:bold;font-size:14px;background:0;border:0;padding:0;line-height:unset;";
+  optionsButton.style.cssText = `color:${color};font-weight:bold;font-size:14px;background:0;border:0;padding:0;line-height:unset;`;
   optionsButton.onclick = () =>
     text.contains(optionsContainer) ? closeOptions() : openOptions();
 
@@ -342,7 +338,7 @@
   link.textContent = "politique en matière de cookies.";
   link.href = script.getAttribute("data-privacy-policy-link");
   link.target = "_blank";
-  link.style.cssText = "color:#d97706;";
+  link.style.cssText = `color:${color};`;
 
   const buttonContainer = document.createElement("div");
   buttonContainer.style.cssText = "display:flex;";
@@ -350,8 +346,7 @@
   const refuseButtonContainer = document.createElement("div");
   const refuseButton = document.createElement("button");
   refuseButton.textContent = "Refuser";
-  refuseButton.style.cssText =
-    "width:max-content;min-width:8em;color:white;background-color:#d97706;border-width:1px;border-color:#d97706;border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;";
+  refuseButton.style.cssText = `width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;`;
   refuseButton.onclick = () =>
     setCookies({
       statistics: false,
@@ -362,16 +357,14 @@
   const acceptButtonContainer = document.createElement("div");
   const acceptButton = document.createElement("button");
   acceptButton.textContent = "Accepter & Fermer";
-  acceptButton.style.cssText =
-    "width:max-content;min-width:8em;color:white;background-color:#d97706;border-width:1px;border-color:#d97706;border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;";
+  acceptButton.style.cssText = `width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;`;
   acceptButton.onclick = () =>
     setCookies({ statistics: true, marketing: true, personnalization: true });
 
   const saveButtonContainer = document.createElement("div");
   const saveButton = document.createElement("button");
   saveButton.textContent = "Enregistrer";
-  saveButton.style.cssText =
-    "width:max-content;min-width:8em;color:white;background-color:#d97706;border-width:1px;border-color:#d97706;border-radius:8px;margin:12px;padding:8px 18px;opacity:0.3;line-height:unset;";
+  saveButton.style.cssText = `width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;opacity:0.3;line-height:unset;`;
   saveButton.disabled = true;
   saveButton.style.cursor = "default";
   saveButton.onclick = () => setCookies(cookieOptions);

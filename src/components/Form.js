@@ -3,6 +3,7 @@ import Button from "./Button";
 import ScriptModal from "./ScriptModal";
 
 const Form = () => {
+  const [color, setColor] = useState("#d97706");
   const [overlay, setOverlay] = useState(false);
   const [privacyPolicyLink, setPrivacyPolicyLink] = useState();
   const [companyName, setCompanyName] = useState();
@@ -14,7 +15,7 @@ const Form = () => {
     if (!companyName || !privacyPolicyLink) return;
 
     const url = `${window.location.href}/banner.js`;
-    const attributes = `data-overlay=${overlay} data-privacy-policy-link=${privacyPolicyLink} data-company-name=${companyName}`;
+    const attributes = `data-color=${color} data-overlay=${overlay} data-privacy-policy-link=${privacyPolicyLink} data-company-name=${companyName}`;
     setScript(
       `<script id="cookie-consent-script" type="text/javascript" src=${url} ${attributes}></script>`
     );
@@ -27,6 +28,7 @@ const Form = () => {
     scriptElement.id = "cookie-consent-script";
     scriptElement.type = "text/javascript";
     scriptElement.src = src;
+    scriptElement.setAttribute("data-color", color);
     scriptElement.setAttribute("data-overlay", overlay);
     scriptElement.setAttribute("data-privacy-policy-link", privacyPolicyLink);
     scriptElement.setAttribute("data-company-name", companyName);
@@ -40,6 +42,20 @@ const Form = () => {
         className="flex flex-col w-10/12 md:w-8/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12 my-14"
         onSubmit={submitForm}
       >
+        <label className="mt-14 mb-6 text-xl">
+          <span className="border-b border-yellow-600 pb-2">Color</span>
+        </label>
+        <div
+          className="self-center w-min rounded-full"
+          style={{ backgroundColor: color }}
+        >
+          <input
+            type="color"
+            onChange={(event) => setColor(event.target.value)}
+            value={color}
+            className="w-20 h-20 rounded-full cursor-pointer opacity-0"
+          />
+        </div>
         <label className="mt-14 mb-6 text-xl">
           <span className="border-b border-yellow-600 pb-2">
             Dark background

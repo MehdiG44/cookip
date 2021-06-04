@@ -15,9 +15,11 @@ const Form = () => {
     if (!companyName || !privacyPolicyLink) return;
 
     const url = `${window.location.href}/banner.js`;
-    const attributes = `data-color="${color}" data-overlay="${overlay}" data-privacy-policy-link="${privacyPolicyLink}" data-company-name="${companyName}"`;
+    const attributes = `data-color=${color} data-overlay=${overlay} data-privacy-policy-link=${privacyPolicyLink} data-company-name=${encodeURI(
+      companyName
+    )}`;
     setScript(
-      `<script id="cookie-consent-script" type="text/javascript" src="${url}" ${attributes}></script>`
+      `<script id="cookie-consent-script" type="text/javascript" src=${url} ${attributes}></script>`
     );
     setSrc(url);
   };

@@ -15,11 +15,8 @@ const Form = () => {
     if (!companyName || !privacyPolicyLink) return;
 
     const url = `${window.location.href}/banner.js`;
-    const attributes = `data-color=${color} data-overlay=${overlay} data-privacy-policy-link=${privacyPolicyLink} data-company-name=${encodeURI(
-      companyName
-    )}`;
     setScript(
-      `<script id="cookie-consent-script" type="text/javascript" src=${url} ${attributes}></script>`
+      `<script>var s = document.createElement("script");s.id = "cookie-consent-script";s.type = "text/javascript";s.dataset.color = "${color}";s.dataset.overlay = "${overlay}";s.dataset.privacyPolicyLink = "${privacyPolicyLink}";s.dataset.companyName = "${companyName}";s.src = "${url}";document.head.appendChild(s);</script>`
     );
     setSrc(url);
   };
@@ -30,10 +27,10 @@ const Form = () => {
     scriptElement.id = "cookie-consent-script";
     scriptElement.type = "text/javascript";
     scriptElement.src = src;
-    scriptElement.setAttribute("data-color", color);
-    scriptElement.setAttribute("data-overlay", overlay);
-    scriptElement.setAttribute("data-privacy-policy-link", privacyPolicyLink);
-    scriptElement.setAttribute("data-company-name", companyName);
+    scriptElement.dataset.color = color;
+    scriptElement.dataset.overlay = overlay;
+    scriptElement.dataset.privacyPolicyLink = privacyPolicyLink;
+    scriptElement.dataset.companyName = companyName;
     setScript("");
     document.head.appendChild(scriptElement);
   };

@@ -1,6 +1,6 @@
 (() => {
   const script = document.getElementById("cookie-consent-script");
-  const color = script.getAttribute("data-color");
+  const color = script.dataset.color;
   let activeCategory;
   const setActiveCategory = (newState) => (activeCategory = newState);
 
@@ -329,14 +329,12 @@
   bannerContent.style.cssText = `display:flex;align-items:center;${bannerContentMobileCss};`;
 
   const text = document.createElement("div");
-  text.textContent = `${script.getAttribute(
-    "data-company-name"
-  )} et ses partenaires déposent des cookies et utilisent des informations non sensibles provenant de votre appareil pour améliorer ses produits, afficher des publicités et proposer des contenus personnalisés. Vous pouvez accepter ou refuser ces services. Vos choix sont conservés pendant 12 mois. Vous pouvez les modifier à tout moment en cliquant sur le lien dédié en bas de page. Pour en savoir plus sur les cookies, les données utilisées et leur traitement, vous pouvez consulter notre `;
+  text.textContent = `${script.dataset.companyName} et ses partenaires déposent des cookies et utilisent des informations non sensibles provenant de votre appareil pour améliorer ses produits, afficher des publicités et proposer des contenus personnalisés. Vous pouvez accepter ou refuser ces services. Vos choix sont conservés pendant 12 mois. Vous pouvez les modifier à tout moment en cliquant sur le lien dédié en bas de page. Pour en savoir plus sur les cookies, les données utilisées et leur traitement, vous pouvez consulter notre `;
   text.style.cssText = "font-size:13px;margin:0 12px 12px 0;";
 
   const link = document.createElement("a");
   link.textContent = "politique en matière de cookies.";
-  link.href = script.getAttribute("data-privacy-policy-link");
+  link.href = script.dataset.privacyPolicyLink;
   link.target = "_blank";
   link.style.cssText = `color:${color};`;
 

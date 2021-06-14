@@ -149,7 +149,7 @@
 
   const container = document.createElement("div");
   container.style.cssText =
-    "position:fixed;top:0;height;100%;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.7);display:flex;align-items:flex-end";
+    "position:fixed;top:0;height;100%;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.7);display:flex;align-items:flex-end;z-index:999999;";
 
   const banner = document.createElement("div");
   const bannerPadding =

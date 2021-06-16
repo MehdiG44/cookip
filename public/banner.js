@@ -143,7 +143,7 @@
     }
 
     carret.style.cssText = carret.style.cssText + "transform: rotate(180deg);";
-    detail.style.cssText = detail.style.cssText + "max-height:150px;";
+    detail.style.cssText = detail.style.cssText + "max-height:300px;";
     setActiveCategory({ category: category, detail: detail, carret: carret });
   };
 
@@ -172,7 +172,7 @@
 
   const technicalCookieCarret = document.createElement("span");
   technicalCookieCarret.textContent = "^";
-  technicalCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
+  technicalCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
   const technicalCookieTextContent = document.createElement("span");
   technicalCookieTextContent.textContent = "Cookies techniques";
@@ -210,7 +210,7 @@
 
   const statisticCookieCarret = document.createElement("span");
   statisticCookieCarret.textContent = "^";
-  statisticCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
+  statisticCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
   const statisticCookieTextContent = document.createElement("span");
   statisticCookieTextContent.textContent = "Mesure d'audience";
@@ -248,7 +248,7 @@
 
   const adCookieCarret = document.createElement("span");
   adCookieCarret.textContent = "^";
-  adCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
+  adCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
   const adCookieTextContent = document.createElement("span");
   adCookieTextContent.textContent = "Publicité personnalisée";
@@ -279,7 +279,7 @@
 
   const adStatisticCarret = document.createElement("span");
   adStatisticCarret.textContent = "^";
-  adStatisticCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
+  adStatisticCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
   const adStatisticTextContent = document.createElement("span");
   adStatisticTextContent.textContent = "Mesure de performance publicitaire";

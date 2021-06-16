@@ -9,14 +9,28 @@ const Form = () => {
   const [companyName, setCompanyName] = useState();
   const [script, setScript] = useState("");
   const [src, setSrc] = useState();
+  const language = document
+    .getElementsByTagName("html")[0]
+    .lang.substring(0, 2);
 
   const submitForm = async (event) => {
     event.preventDefault();
     if (!companyName || !privacyPolicyLink) return;
 
     const url = `${window.location.href}/banner.js`;
+
     setScript(
-      `<script>var s = document.createElement("script");s.id = "cookie-consent-script";s.type = "text/javascript";s.dataset.color = "${color}";s.dataset.overlay = "${overlay}";s.dataset.privacyPolicyLink = "${privacyPolicyLink}";s.dataset.companyName = "${companyName}";s.src = "${url}";document.head.appendChild(s);</script>`
+      `<script>
+        var s = document.createElement("script");
+        s.id = "cookie-consent-script";
+        s.type = "text/javascript";
+        s.dataset.color = "${color}";
+        s.dataset.language = "${language}";
+        s.dataset.overlay = "${overlay}";
+        s.dataset.privacyPolicyLink = "${privacyPolicyLink}";
+        s.dataset.companyName = "${companyName}";s.src = "${url}";
+        document.head.appendChild(s);
+      </script>`
     );
     setSrc(url);
   };
@@ -28,6 +42,7 @@ const Form = () => {
     scriptElement.type = "text/javascript";
     scriptElement.src = src;
     scriptElement.dataset.color = color;
+    scriptElement.dataset.language = language;
     scriptElement.dataset.overlay = overlay;
     scriptElement.dataset.privacyPolicyLink = privacyPolicyLink;
     scriptElement.dataset.companyName = companyName;

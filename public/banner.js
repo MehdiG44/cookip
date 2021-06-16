@@ -50,7 +50,7 @@
   const closeOptions = () => {
     text.removeChild(optionsContainer);
 
-    if (window.screen.width > 768) {
+    if (window.screen.width >= 1024) {
       bannerContent.style.cssText =
         bannerContent.style.cssText + "flex-direction:row;";
     }
@@ -153,7 +153,7 @@
 
   const banner = document.createElement("div");
   const bannerPadding =
-    window.screen.width < 700 ? "padding:1em;" : "padding:2em 3em;";
+    window.screen.width < 1024 ? "padding:1em;" : "padding:2em 3em;";
   banner.style.cssText = `${bannerPadding};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;`;
 
   const header = document.createElement("div");
@@ -325,7 +325,7 @@
 
   const bannerContent = document.createElement("div");
   const bannerContentMobileCss =
-    window.screen.width < 700 ? "flex-direction:column" : "";
+    window.screen.width < 1024 ? "flex-direction:column" : "";
   bannerContent.style.cssText = `display:flex;align-items:center;${bannerContentMobileCss};`;
 
   const text = document.createElement("div");
@@ -339,7 +339,11 @@
   link.style.cssText = `color:${color};`;
 
   const buttonContainer = document.createElement("div");
-  buttonContainer.style.cssText = "display:flex;";
+  const buttonContainerMobileCss =
+    window.screen.width < 1024
+      ? "flex-direction:column;align-items:center"
+      : "";
+  buttonContainer.style.cssText = `display:flex;${buttonContainerMobileCss};`;
 
   const refuseButtonContainer = document.createElement("div");
   const refuseButton = document.createElement("button");

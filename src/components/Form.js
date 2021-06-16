@@ -38,7 +38,7 @@ const Form = () => {
   return (
     <>
       <form
-        className="flex flex-col w-10/12 md:w-8/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12 my-14"
+        className="flex flex-col w-10/12 md:w-8/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12 mb-14"
         onSubmit={submitForm}
       >
         <label className="mt-14 mb-6 text-xl">

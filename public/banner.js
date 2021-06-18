@@ -228,13 +228,20 @@
   };
 
   const container = document.createElement("div");
-  container.style.cssText =
-    "position:fixed;top:0;height;100%;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.7);display:flex;align-items:flex-end;z-index:999999;";
+  const containerWithoutOverlay =
+    script.dataset.overlay == "true"
+      ? "top:0;background-color:rgba(0, 0, 0, 0.7)"
+      : "";
+  container.style.cssText = `position:fixed;bottom:0;width:100%;display:flex;align-items:flex-end;z-index:999999;${containerWithoutOverlay};`;
 
   const banner = document.createElement("div");
   const bannerPadding =
     window.screen.width < 1024 ? "padding:1em;" : "padding:2em 3em;";
-  banner.style.cssText = `${bannerPadding};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;width:100vw;`;
+  const bannerWithoutOverlay =
+    script.dataset.overlay == "true"
+      ? ""
+      : "box-shadow:0px 0px 24px 12px lightgrey";
+  banner.style.cssText = `${bannerPadding};${bannerWithoutOverlay};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;width:100vw;`;
 
   const header = document.createElement("div");
   header.style.cssText =

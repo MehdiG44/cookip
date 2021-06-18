@@ -4,7 +4,7 @@ import ScriptModal from "./ScriptModal";
 
 const Form = () => {
   const [color, setColor] = useState("#d97706");
-  const [overlay, setOverlay] = useState(false);
+  const [overlay, setOverlay] = useState(true);
   const [privacyPolicyLink, setPrivacyPolicyLink] = useState();
   const [companyName, setCompanyName] = useState();
   const [script, setScript] = useState("");
@@ -70,7 +70,7 @@ const Form = () => {
             className="w-20 h-20 rounded-full cursor-pointer opacity-0"
           />
         </div>
-        {/* <label className="mt-14 mb-6 text-xl">
+        <label className="mt-14 mb-6 text-xl">
           <span className="border-b border-yellow-600 pb-2">
             Dark background
           </span>
@@ -96,7 +96,7 @@ const Form = () => {
             />
             No
           </label>
-        </div> */}
+        </div>
         <label className="mt-14 mb-6 text-xl">
           <span className="border-b border-yellow-600 pb-2">
             Privacy policy link

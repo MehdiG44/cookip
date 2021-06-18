@@ -234,7 +234,7 @@
   const banner = document.createElement("div");
   const bannerPadding =
     window.screen.width < 1024 ? "padding:1em;" : "padding:2em 3em;";
-  banner.style.cssText = `${bannerPadding};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;`;
+  banner.style.cssText = `${bannerPadding};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;width:100vw;`;
 
   const header = document.createElement("div");
   header.style.cssText =

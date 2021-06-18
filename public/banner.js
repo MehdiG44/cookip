@@ -100,6 +100,10 @@
   };
 
   const setCookies = (cookie) => {
+    document.body.removeChild(container);
+
+    if (script.dataset.preview == "true") return;
+
     const value = {
       statistics: cookie.statistics,
       marketing: cookie.marketing,
@@ -110,7 +114,8 @@
     document.cookie = `cookie_consent_${
       document.location.hostname
     }=${JSON.stringify(value)};max-age=31560000`;
-    document.body.removeChild(container);
+
+    window.dispatchEvent(new Event("cookie_consent_set"));
   };
 
   const openOptions = () => {

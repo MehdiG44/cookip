@@ -46,6 +46,7 @@ const Form = () => {
     scriptElement.dataset.overlay = overlay;
     scriptElement.dataset.privacyPolicyLink = privacyPolicyLink;
     scriptElement.dataset.companyName = companyName;
+    scriptElement.dataset.preview = true;
     setScript("");
     document.head.appendChild(scriptElement);
   };

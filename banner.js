@@ -1,6 +1,86 @@
 (() => {
+  const TEXT = {
+    acceptAll: {
+      fr: "Accepter tout",
+      en: "Accept all",
+    },
+    refuseAll: {
+      fr: "Refuser tout",
+      en: "Refuse all",
+    },
+    accept: {
+      fr: "Accepter & fermer",
+      en: "Accept & close",
+    },
+    refuse: {
+      fr: "Refuser",
+      en: "Refuse",
+    },
+    save: {
+      fr: "Enregister",
+      en: "Save",
+    },
+    browsingExperience: {
+      fr: "Experience de navigation",
+      en: "Browsing experience",
+    },
+    options: {
+      fr: "Options",
+      en: "Options",
+    },
+    link: {
+      fr: "politique en matière de cookies.",
+      en: "cookie consent policy.",
+    },
+    text: {
+      fr: "et ses partenaires déposent des cookies et utilisent des informations non sensibles provenant de votre appareil pour améliorer ses produits, afficher des publicités et proposer des contenus personnalisés. Vous pouvez accepter ou refuser ces services. Vos choix sont conservés pendant 12 mois. Pour en savoir plus sur les cookies, les données utilisées et leur traitement, vous pouvez consulter notre",
+      en: " and its partners save cookies and use non sensitive information from your device to improve its products, display advertisement and present personalized content. You can accept or refuse those services. Your choices are saved for 12 months. To know more about cookies, information used and its usage, you can refer to our",
+    },
+    technicalCookie: {
+      title: {
+        fr: "Cookies techniques",
+        en: "Technical cookies",
+      },
+      detail: {
+        fr: "Ces cookies sont nécessaires au bon fonctionnement du site ainsi qu’à la conservation de votre consentement en matière de cookies. Ils sont requis et ne peuvent être désactivés.",
+        en: "Those cookies are needed for the website to work properly and to save your consent. They are required and can not be disabled.",
+      },
+    },
+    statisticCookie: {
+      title: {
+        fr: "Mesure d'audience",
+        en: "Audience measurement",
+      },
+      detail: {
+        fr: "Ces cookies nous permettent de comprendre comment vous naviguez sur notre site et d'en suivre la fréquentation. Vous nous aidez ainsi à mesurer la performance du site et à améliorer la qualité de nos services.",
+        en: "Those cookies allow us to understand how you navigate on our website and to monitor visits. They enable us to improve it by measuring its performance.",
+      },
+    },
+    adCookie: {
+      title: {
+        fr: "Publicité personnalisée",
+        en: "Personalized advertisement",
+      },
+      detail: {
+        fr: "Ces cookies permettent à nos partenaires de vous proposer des publicités plus pertinentes sur Internet. Ils permettent la collecte et le traitement de données d'utilisation du site afin de vous proposer des publicités sur des sites ou applications tierces. Ce choix n'impactera pas le nombre de publicités que vous verrez sur Internet.",
+        en: "Those cookies allow our partners to present you more relevant advertisement on the Internet. They allow the gathering and processing of website usage data to present you advertisement on third party websites. This choice will not impact the number of advertisement you will see on the Internet.",
+      },
+    },
+    adStatisticCookie: {
+      title: {
+        fr: "Mesure de performance publicitaire",
+        en: "Advertisement performance measurement",
+      },
+      detail: {
+        fr: "Ces cookies permettent la collecte et le traitement de données d'utilisation du site afin de mesurer la performance de nos campagnes publicitaires et de partager ces données avec nos partenaires. Ce choix n'impactera pas le nombre de publicités que vous verrez sur Internet.",
+        en: "Those cookies allow the gathering and processing of website usage data to measure the performance of our advertisement campaigns, and to share this information with our partners. This choice will not impact the number of advertisement you will see on the Internet.",
+      },
+    },
+  };
+
   const script = document.getElementById("cookie-consent-script");
   const color = script.dataset.color;
+  const language = script.dataset.language;
   let activeCategory;
   const setActiveCategory = (newState) => (activeCategory = newState);
 
@@ -20,6 +100,10 @@
   };
 
   const setCookies = (cookie) => {
+    document.body.removeChild(container);
+
+    if (script.dataset.preview == "true") return;
+
     const value = {
       statistics: cookie.statistics,
       marketing: cookie.marketing,
@@ -30,15 +114,16 @@
     document.cookie = `cookie_consent_${
       document.location.hostname
     }=${JSON.stringify(value)};max-age=31560000`;
-    document.body.removeChild(container);
+
+    window.dispatchEvent(new Event("cookie_consent_set"));
   };
 
   const openOptions = () => {
     bannerContent.style.cssText =
       bannerContent.style.cssText + "flex-direction:column;";
     text.appendChild(optionsContainer);
-    acceptButton.textContent = "Accepter tout";
-    refuseButton.textContent = "Refuser tout";
+    acceptButton.textContent = TEXT.acceptAll[language];
+    refuseButton.textContent = TEXT.refuseAll[language];
 
     if (cookieOptionSet) {
       buttonContainer.removeChild(acceptButtonContainer);
@@ -50,13 +135,13 @@
   const closeOptions = () => {
     text.removeChild(optionsContainer);
 
-    if (window.screen.width > 768) {
+    if (window.screen.width >= 1024) {
       bannerContent.style.cssText =
         bannerContent.style.cssText + "flex-direction:row;";
     }
 
-    acceptButton.textContent = "Accepter et Fermer";
-    refuseButton.textContent = "Refuser";
+    acceptButton.textContent = TEXT.accept[language];
+    refuseButton.textContent = TEXT.refuse[language];
     if (cookieOptionSet) buttonContainer.removeChild(saveButtonContainer);
     buttonContainer.append(refuseButtonContainer, acceptButtonContainer);
   };
@@ -143,39 +228,45 @@
     }
 
     carret.style.cssText = carret.style.cssText + "transform: rotate(180deg);";
-    detail.style.cssText = detail.style.cssText + "max-height:150px;";
+    detail.style.cssText = detail.style.cssText + "max-height:300px;";
     setActiveCategory({ category: category, detail: detail, carret: carret });
   };
 
   const container = document.createElement("div");
-  container.style.cssText =
-    "position:fixed;top:0;height;100%;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.7);display:flex;align-items:flex-end;z-index:999999;";
+  const containerWithoutOverlay =
+    script.dataset.overlay == "true"
+      ? "top:0;background-color:rgba(0, 0, 0, 0.7)"
+      : "";
+  container.style.cssText = `position:fixed;bottom:0;width:100%;display:flex;align-items:flex-end;z-index:999999;${containerWithoutOverlay};`;
 
   const banner = document.createElement("div");
   const bannerPadding =
-    window.screen.width < 700 ? "padding:1em;" : "padding:2em 3em;";
-  banner.style.cssText = `${bannerPadding};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;`;
+    window.screen.width < 1024 ? "padding:1em;" : "padding:2em 3em;";
+  const bannerWithoutOverlay =
+    script.dataset.overlay == "true"
+      ? ""
+      : "box-shadow:0px 0px 24px 12px lightgrey";
+  banner.style.cssText = `${bannerPadding};${bannerWithoutOverlay};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;width:100vw;`;
 
   const header = document.createElement("div");
   header.style.cssText =
     "margin-bottom: 16px;display:flex;justify-content:space-between";
 
   const title = document.createElement("h1");
-  title.textContent = "Experience de navigation";
+  title.textContent = TEXT.browsingExperience[language];
   title.style.cssText = "font-size: 20px;font-weight: bold";
 
   const technicalCookieDetail = document.createElement("div");
   technicalCookieDetail.style.cssText =
     "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
-  technicalCookieDetail.textContent =
-    "Ces cookies sont nécessaires au bon fonctionnement du site ainsi qu’à la conservation de votre consentement en matière de cookies. Ils sont requis et ne peuvent être désactivés.";
+  technicalCookieDetail.textContent = TEXT.technicalCookie.detail[language];
 
   const technicalCookieCarret = document.createElement("span");
   technicalCookieCarret.textContent = "^";
-  technicalCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
+  technicalCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
   const technicalCookieTextContent = document.createElement("span");
-  technicalCookieTextContent.textContent = "Cookies techniques";
+  technicalCookieTextContent.textContent = TEXT.technicalCookie.title[language];
   technicalCookieTextContent.style.cssText = "margin-left: 12px;";
 
   const technicalCookieHeader = document.createElement("div");
@@ -205,15 +296,14 @@
   const statisticCookieDetail = document.createElement("div");
   statisticCookieDetail.style.cssText =
     "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
-  statisticCookieDetail.textContent =
-    "Ces cookies nous permettent de comprendre comment vous naviguez sur notre site et d'en suivre la fréquentation. Vous nous aidez ainsi à mesurer la performance du site et à améliorer la qualité de nos services.";
+  statisticCookieDetail.textContent = TEXT.statisticCookie.detail[language];
 
   const statisticCookieCarret = document.createElement("span");
   statisticCookieCarret.textContent = "^";
-  statisticCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
+  statisticCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
   const statisticCookieTextContent = document.createElement("span");
-  statisticCookieTextContent.textContent = "Mesure d'audience";
+  statisticCookieTextContent.textContent = TEXT.statisticCookie.title[language];
   statisticCookieTextContent.style.cssText = "margin-left: 12px;";
 
   const statisticCookieHeader = document.createElement("div");
@@ -243,15 +333,14 @@
   const adCookieDetail = document.createElement("div");
   adCookieDetail.style.cssText =
     "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
-  adCookieDetail.textContent =
-    "Ces cookies permettent à nos partenaires de vous proposer des publicités plus pertinentes sur Internet. Ils permettent la collecte et le traitement de données d'utilisation du site afin de vous proposer des publicités sur des sites ou applications tierces. Ce choix n'impactera pas le nombre de publicités que vous verrez sur Internet.";
+  adCookieDetail.textContent = TEXT.adCookie.detail[language];
 
   const adCookieCarret = document.createElement("span");
   adCookieCarret.textContent = "^";
-  adCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
+  adCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
   const adCookieTextContent = document.createElement("span");
-  adCookieTextContent.textContent = "Publicité personnalisée";
+  adCookieTextContent.textContent = TEXT.adCookie.title[language];
   adCookieTextContent.style.cssText = "margin-left: 12px;";
 
   const adCookieHeader = document.createElement("div");
@@ -274,15 +363,14 @@
   const adStatisticCookieDetail = document.createElement("div");
   adStatisticCookieDetail.style.cssText =
     "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
-  adStatisticCookieDetail.textContent =
-    "Ces cookies permettent la collecte et le traitement de données d'utilisation du site afin de mesurer la performance de nos campagnes publicitaires et de partager ces données avec nos partenaires. Ce choix n'impactera pas le nombre de publicités que vous verrez sur Internet.";
+  adStatisticCookieDetail.textContent = TEXT.adStatisticCookie.detail[language];
 
   const adStatisticCarret = document.createElement("span");
   adStatisticCarret.textContent = "^";
-  adStatisticCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 300ms linear 0s;`;
+  adStatisticCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
   const adStatisticTextContent = document.createElement("span");
-  adStatisticTextContent.textContent = "Mesure de performance publicitaire";
+  adStatisticTextContent.textContent = TEXT.adStatisticCookie.title[language];
   adStatisticTextContent.style.cssText = "margin-left: 12px;";
 
   const adStatisticCookieHeader = document.createElement("div");
@@ -318,32 +406,36 @@
   );
 
   const optionsButton = document.createElement("button");
-  optionsButton.textContent = "Options";
+  optionsButton.textContent = TEXT.options[language];
   optionsButton.style.cssText = `color:${color};font-weight:bold;font-size:14px;background:0;border:0;padding:0;line-height:unset;`;
   optionsButton.onclick = () =>
     text.contains(optionsContainer) ? closeOptions() : openOptions();
 
   const bannerContent = document.createElement("div");
   const bannerContentMobileCss =
-    window.screen.width < 700 ? "flex-direction:column" : "";
+    window.screen.width < 1024 ? "flex-direction:column" : "";
   bannerContent.style.cssText = `display:flex;align-items:center;${bannerContentMobileCss};`;
 
   const text = document.createElement("div");
-  text.textContent = `${script.dataset.companyName} et ses partenaires déposent des cookies et utilisent des informations non sensibles provenant de votre appareil pour améliorer ses produits, afficher des publicités et proposer des contenus personnalisés. Vous pouvez accepter ou refuser ces services. Vos choix sont conservés pendant 12 mois. Vous pouvez les modifier à tout moment en cliquant sur le lien dédié en bas de page. Pour en savoir plus sur les cookies, les données utilisées et leur traitement, vous pouvez consulter notre `;
+  text.textContent = `${script.dataset.companyName} ${TEXT.text[language]} `;
   text.style.cssText = "font-size:13px;margin:0 12px 12px 0;";
 
   const link = document.createElement("a");
-  link.textContent = "politique en matière de cookies.";
+  link.textContent = TEXT.link[language];
   link.href = script.dataset.privacyPolicyLink;
   link.target = "_blank";
   link.style.cssText = `color:${color};`;
 
   const buttonContainer = document.createElement("div");
-  buttonContainer.style.cssText = "display:flex;";
+  const buttonContainerMobileCss =
+    window.screen.width < 1024
+      ? "flex-direction:column;align-items:center"
+      : "";
+  buttonContainer.style.cssText = `display:flex;${buttonContainerMobileCss};`;
 
   const refuseButtonContainer = document.createElement("div");
   const refuseButton = document.createElement("button");
-  refuseButton.textContent = "Refuser";
+  refuseButton.textContent = TEXT.refuse[language];
   refuseButton.style.cssText = `width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;`;
   refuseButton.onclick = () =>
     setCookies({
@@ -354,14 +446,14 @@
 
   const acceptButtonContainer = document.createElement("div");
   const acceptButton = document.createElement("button");
-  acceptButton.textContent = "Accepter & Fermer";
+  acceptButton.textContent = TEXT.accept[language];
   acceptButton.style.cssText = `width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;`;
   acceptButton.onclick = () =>
     setCookies({ statistics: true, marketing: true, personnalization: true });
 
   const saveButtonContainer = document.createElement("div");
   const saveButton = document.createElement("button");
-  saveButton.textContent = "Enregistrer";
+  saveButton.textContent = TEXT.save[language];
   saveButton.style.cssText = `width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;opacity:0.3;line-height:unset;`;
   saveButton.disabled = true;
   saveButton.style.cursor = "default";

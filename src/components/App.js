@@ -21,7 +21,7 @@ const App = () => {
 
       const dataLayerScript = document.createElement("script");
       dataLayerScript.textContent =
-        "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-9QE6XNSX60');";
+        "window.dataLayer = window.dataLayer || [];window.gtag = function(){dataLayer.push(arguments);};window.gtag('js', new Date());window.gtag('config', 'G-9QE6XNSX60');";
 
       document.head.append(script, dataLayerScript);
     });

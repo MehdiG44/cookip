@@ -37,6 +37,7 @@ const Form = () => {
 
   const copyScriptAndPreview = () => {
     navigator.clipboard.writeText(script);
+    window.gtag && window.gtag("event", "copy_script");
     const scriptElement = document.createElement("script");
     scriptElement.id = "cookie-consent-script";
     scriptElement.type = "text/javascript";

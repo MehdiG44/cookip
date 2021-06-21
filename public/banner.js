@@ -92,6 +92,8 @@
   let cookieOptionSet = false;
 
   const cookieConsentAlreadySet = () => {
+    if (script.dataset.preview == "true") return false;
+
     const isSet = document.cookie.split("; ").some((cookie) => {
       return cookie.startsWith(`cookie_consent_${document.location.hostname}=`);
     });
@@ -102,20 +104,22 @@
   const setCookies = (cookie) => {
     document.body.removeChild(container);
 
-    if (script.dataset.preview == "true") return;
+    if (!script.dataset.preview) {
+      const value = {
+        statistics: cookie.statistics,
+        marketing: cookie.marketing,
+        personnalization: cookie.personnalization,
+        necessary: true,
+      };
 
-    const value = {
-      statistics: cookie.statistics,
-      marketing: cookie.marketing,
-      personnalization: cookie.personnalization,
-      necessary: true,
-    };
+      document.cookie = `cookie_consent_${
+        document.location.hostname
+      }=${JSON.stringify(value)};max-age=31560000`;
 
-    document.cookie = `cookie_consent_${
-      document.location.hostname
-    }=${JSON.stringify(value)};max-age=31560000`;
+      window.dispatchEvent(new Event("cookie_consent_set"));
+    }
 
-    window.dispatchEvent(new Event("cookie_consent_set"));
+    document.head.removeChild(script);
   };
 
   const openOptions = () => {
@@ -470,7 +474,7 @@
   saveButtonContainer.appendChild(saveButton);
 
   const displayBanner = () => {
-    if (cookieConsentAlreadySet()) return;
+    if (cookieConsentAlreadySet()) return document.head.removeChild(script);
     document.body.appendChild(container);
   };
 

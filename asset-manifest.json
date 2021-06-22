@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/cookie-consent/static/css/main.51c89c67.chunk.css",
-    "main.js": "/cookie-consent/static/js/main.3b05bdff.chunk.js",
-    "main.js.map": "/cookie-consent/static/js/main.3b05bdff.chunk.js.map",
+    "main.css": "/cookie-consent/static/css/main.fc4f5be6.chunk.css",
+    "main.js": "/cookie-consent/static/js/main.71fe2ff3.chunk.js",
+    "main.js.map": "/cookie-consent/static/js/main.71fe2ff3.chunk.js.map",
     "runtime-main.js": "/cookie-consent/static/js/runtime-main.88c1802e.js",
     "runtime-main.js.map": "/cookie-consent/static/js/runtime-main.88c1802e.js.map",
     "static/js/2.e05e0acc.chunk.js": "/cookie-consent/static/js/2.e05e0acc.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.e7fd7cdd.chunk.js": "/cookie-consent/static/js/3.e7fd7cdd.chunk.js",
     "static/js/3.e7fd7cdd.chunk.js.map": "/cookie-consent/static/js/3.e7fd7cdd.chunk.js.map",
     "index.html": "/cookie-consent/index.html",
-    "static/css/main.51c89c67.chunk.css.map": "/cookie-consent/static/css/main.51c89c67.chunk.css.map",
+    "static/css/main.fc4f5be6.chunk.css.map": "/cookie-consent/static/css/main.fc4f5be6.chunk.css.map",
     "static/js/2.e05e0acc.chunk.js.LICENSE.txt": "/cookie-consent/static/js/2.e05e0acc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.88c1802e.js",
     "static/js/2.e05e0acc.chunk.js",
-    "static/css/main.51c89c67.chunk.css",
-    "static/js/main.3b05bdff.chunk.js"
+    "static/css/main.fc4f5be6.chunk.css",
+    "static/js/main.71fe2ff3.chunk.js"
   ]
 }

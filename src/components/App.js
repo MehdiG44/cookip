@@ -29,8 +29,8 @@ const App = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-6xl font-title font-bold w-11/12 text-center my-8">
-        Cookie banner generator
+      <h1 className="text-blue-600 text-6xl font-title font-bold w-11/12 text-center my-8">
+        COOKIP
       </h1>
       <div className="text-xl">
         Free cookie consent banner script generator.

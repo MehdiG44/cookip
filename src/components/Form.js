@@ -3,7 +3,7 @@ import Button from "./Button";
 import ScriptModal from "./ScriptModal";
 
 const Form = () => {
-  const [color, setColor] = useState("#d97706");
+  const [color, setColor] = useState("#2563eb");
   const [overlay, setOverlay] = useState(true);
   const [privacyPolicyLink, setPrivacyPolicyLink] = useState();
   const [companyName, setCompanyName] = useState();
@@ -59,7 +59,7 @@ const Form = () => {
         onSubmit={submitForm}
       >
         <label className="mt-14 mb-6 text-xl">
-          <span className="border-b border-yellow-600 pb-2">Color</span>
+          <span className="border-b border-blue-600 pb-2">Color</span>
         </label>
         <div
           className="self-center w-min rounded-full"
@@ -73,9 +73,7 @@ const Form = () => {
           />
         </div>
         <label className="mt-14 mb-6 text-xl">
-          <span className="border-b border-yellow-600 pb-2">
-            Dark background
-          </span>
+          <span className="border-b border-blue-600 pb-2">Dark background</span>
         </label>
         <div className="self-center">
           <label>
@@ -100,7 +98,7 @@ const Form = () => {
           </label>
         </div>
         <label className="mt-14 mb-6 text-xl">
-          <span className="border-b border-yellow-600 pb-2">
+          <span className="border-b border-blue-600 pb-2">
             Privacy policy link
           </span>
         </label>
@@ -112,7 +110,7 @@ const Form = () => {
           required="required"
         />
         <label className="mt-14 mb-6 text-xl">
-          <span className="border-b border-yellow-600 pb-2">Company name</span>
+          <span className="border-b border-blue-600 pb-2">Company name</span>
         </label>
         <input
           type="text"

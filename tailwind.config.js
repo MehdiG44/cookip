@@ -3,7 +3,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      title: ['"Amatic SC"', "cursive"],
+      title: ["Nunito", "sans-serif"],
     },
     extend: {},
   },

@@ -2,7 +2,7 @@
   "name": "cookie_consent",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://cookip.org",
+  "homepage": "https://cookip.org/cookie-consent",
   "dependencies": {
     "@craco/craco": "^6.1.2",
     "@testing-library/jest-dom": "^5.11.4",

@@ -78,9 +78,10 @@
     },
   };
 
-  const script = document.getElementById("cookie-consent-script");
+  const script = document.getElementById("cookip-script");
   const color = script.dataset.color;
   const language = script.dataset.language;
+
   let activeCategory;
   const setActiveCategory = (newState) => (activeCategory = newState);
 
@@ -89,13 +90,14 @@
     marketing: null,
     personnalization: null,
   };
+
   let cookieOptionSet = false;
 
   const cookieConsentAlreadySet = () => {
     if (script.dataset.preview == "true") return false;
 
     const isSet = document.cookie.split("; ").some((cookie) => {
-      return cookie.startsWith(`cookie_consent_${document.location.hostname}=`);
+      return cookie.startsWith(`cookip_${document.location.hostname}=`);
     });
 
     return isSet;
@@ -112,11 +114,11 @@
         necessary: true,
       };
 
-      document.cookie = `cookie_consent_${
-        document.location.hostname
-      }=${JSON.stringify(value)};max-age=31560000`;
+      document.cookie = `cookip_${document.location.hostname}=${JSON.stringify(
+        value
+      )};max-age=31560000`;
 
-      window.dispatchEvent(new Event("cookie_consent_set"));
+      window.dispatchEvent(new Event("cookip_set"));
     }
 
     document.head.removeChild(script);

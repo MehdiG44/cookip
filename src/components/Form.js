@@ -22,7 +22,7 @@ const Form = () => {
     setScript(
       `<script>
         var s = document.createElement("script");
-        s.id = "cookie-consent-script";
+        s.id = "cookip-script";
         s.type = "text/javascript";
         s.dataset.color = "${color}";
         s.dataset.language = "${language}";
@@ -39,7 +39,7 @@ const Form = () => {
     navigator.clipboard.writeText(script);
     window.gtag && window.gtag("event", "copy_script");
     const scriptElement = document.createElement("script");
-    scriptElement.id = "cookie-consent-script";
+    scriptElement.id = "cookip-script";
     scriptElement.type = "text/javascript";
     scriptElement.src = src;
     scriptElement.dataset.color = color;

@@ -3,12 +3,12 @@ import Form from "./Form";
 
 const App = () => {
   useEffect(() => {
-    window.addEventListener("cookie_consent_set", () => {
+    window.addEventListener("cookip_set", () => {
       const consentCookie = JSON.parse(
         document.cookie
           .split("; ")
           .find((cookie) =>
-            cookie.startsWith(`cookie_consent_${document.location.hostname}=`)
+            cookie.startsWith(`cookip_${document.location.hostname}=`)
           )
           .split("=")[1]
       );
@@ -32,13 +32,15 @@ const App = () => {
       <h1 className="text-blue-600 text-6xl font-title font-bold w-11/12 text-center my-8">
         COOKIP
       </h1>
-      <div className="text-xl">
+      <div className="text-lg text-center mb-2">
         Free cookie consent banner script generator.
       </div>
-      <div className="text-xl">
+      <div className="text-lg text-center mb-2">
         Can be used on its own or via Google Tag Manager.
       </div>
-      <div className="text-xl">Available in English and French.</div>
+      <div className="text-lg text-center">
+        Available in English and French.
+      </div>
       <Form />
     </div>
   );

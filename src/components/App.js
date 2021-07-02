@@ -16,12 +16,12 @@ const App = () => {
       if (!consentCookie.statistics) return;
 
       const script = document.createElement("script");
-      script.src = "https://www.googletagmanager.com/gtag/js?id=G-9QE6XNSX60";
+      script.src = "https://www.googletagmanager.com/gtag/js?id=G-BJY35G7VTC";
       script.async = true;
 
       const dataLayerScript = document.createElement("script");
       dataLayerScript.textContent =
-        "window.dataLayer = window.dataLayer || [];window.gtag = function(){dataLayer.push(arguments);};window.gtag('js', new Date());window.gtag('config', 'G-9QE6XNSX60');";
+        "window.dataLayer = window.dataLayer || [];window.gtag = function(){dataLayer.push(arguments);};window.gtag('js', new Date());window.gtag('config', 'G-BJY35G7VTC');";
 
       document.head.append(script, dataLayerScript);
     });

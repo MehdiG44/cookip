@@ -198,7 +198,7 @@
     const checkButton = document.createElement("button");
     checkButton.textContent = "✓";
     checkButton.style.cssText =
-      "background:0;border:0;color:green;font-size:30px;margin:0 0 0 1em;line-height:unset;padding:0;";
+      'background:0;border:0;color:green;font-size:30px;margin:0 0 0 1em;line-height:unset;padding:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;cursor:pointer;';
     checkButton.name = name;
     if (name === "technical") {
       checkButton.disabled = true;
@@ -210,7 +210,7 @@
     const crossButton = document.createElement("button");
     crossButton.textContent = "✕";
     crossButton.style.cssText =
-      "background:0;border:0;color:red;font-size:30px;margin:0;line-height:unset;padding:0;";
+      'background:0;border:0;color:red;font-size:30px;margin:0;line-height:unset;padding:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;cursor:pointer';
     crossButton.name = name;
     if (name === "technical") {
       crossButton.disabled = true;
@@ -247,7 +247,7 @@
     script.dataset.overlay == "true"
       ? "top:0;background-color:rgba(0, 0, 0, 0.7)"
       : "";
-  container.style.cssText = `position:fixed;bottom:0;width:100%;display:flex;align-items:flex-end;z-index:999999;${containerWithoutOverlay};`;
+  container.style.cssText = `position:fixed;bottom:0;width:100%;display:flex;align-items:flex-end;z-index:999999;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;${containerWithoutOverlay};`;
 
   const banner = document.createElement("div");
   const bannerPadding =
@@ -264,7 +264,8 @@
 
   const title = document.createElement("h1");
   title.textContent = TEXT.browsingExperience[language];
-  title.style.cssText = "font-size: 20px;font-weight: bold";
+  title.style.cssText =
+    "font-size: 20px;font-weight: bold;margin:unset;line-height:unset;";
 
   const technicalCookieDetail = document.createElement("div");
   technicalCookieDetail.style.cssText =
@@ -289,7 +290,7 @@
 
   const technicalCookieText = document.createElement("a");
   technicalCookieText.style.cssText =
-    "width:70%;display:flex;cursor:pointer;flex-direction:column;";
+    "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   technicalCookieText.append(technicalCookieHeader, technicalCookieDetail);
 
   const technicalCookie = document.createElement("div");
@@ -326,7 +327,7 @@
 
   const statisticCookieText = document.createElement("a");
   statisticCookieText.style.cssText =
-    "width:70%;display:flex;cursor:pointer;flex-direction:column;";
+    "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   statisticCookieText.append(statisticCookieHeader, statisticCookieDetail);
 
   const statisticCookie = document.createElement("div");
@@ -360,7 +361,7 @@
 
   const adCookieText = document.createElement("a");
   adCookieText.style.cssText =
-    "width:70%;display:flex;cursor:pointer;flex-direction:column;";
+    "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   adCookieText.append(adCookieHeader, adCookieDetail);
 
   const adCookie = document.createElement("div");
@@ -390,7 +391,7 @@
 
   const adStatisticCookieText = document.createElement("a");
   adStatisticCookieText.style.cssText =
-    "width:70%;display:flex;cursor:pointer;flex-direction:column;";
+    "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   adStatisticCookieText.append(
     adStatisticCookieHeader,
     adStatisticCookieDetail
@@ -417,7 +418,7 @@
 
   const optionsButton = document.createElement("button");
   optionsButton.textContent = TEXT.options[language];
-  optionsButton.style.cssText = `color:${color};font-weight:bold;font-size:14px;background:0;border:0;padding:0;line-height:unset;`;
+  optionsButton.style.cssText = `color:${color};font-weight:bold;font-size:14px;background:0;border:0;padding:0;line-height:unset;cursor:pointer;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
   optionsButton.onclick = () =>
     text.contains(optionsContainer) ? closeOptions() : openOptions();
 
@@ -434,7 +435,7 @@
   link.textContent = TEXT.link[language];
   link.href = script.dataset.privacyPolicyLink;
   link.target = "_blank";
-  link.style.cssText = `color:${color};`;
+  link.style.cssText = `color:${color};text-decoration:none;`;
 
   const linkSentence = document.createElement("span");
   linkSentence.textContent = TEXT.linkSentence[language];
@@ -450,7 +451,7 @@
   const refuseButtonContainer = document.createElement("div");
   const refuseButton = document.createElement("button");
   refuseButton.textContent = TEXT.refuse[language];
-  refuseButton.style.cssText = `width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;`;
+  refuseButton.style.cssText = `cursor:pointer;width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
   refuseButton.onclick = () =>
     setCookies({
       statistics: false,
@@ -461,14 +462,14 @@
   const acceptButtonContainer = document.createElement("div");
   const acceptButton = document.createElement("button");
   acceptButton.textContent = TEXT.accept[language];
-  acceptButton.style.cssText = `width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;`;
+  acceptButton.style.cssText = `cursor:pointer;width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
   acceptButton.onclick = () =>
     setCookies({ statistics: true, marketing: true, personnalization: true });
 
   const saveButtonContainer = document.createElement("div");
   const saveButton = document.createElement("button");
   saveButton.textContent = TEXT.save[language];
-  saveButton.style.cssText = `width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;opacity:0.3;line-height:unset;`;
+  saveButton.style.cssText = `cursor:pointer;width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;opacity:0.3;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
   saveButton.disabled = true;
   saveButton.style.cursor = "default";
   saveButton.onclick = () => setCookies(cookieOptions);

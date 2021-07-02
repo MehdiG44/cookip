@@ -1,5 +1,5 @@
 (() => {
-  const TEXT = {
+  var TEXT = {
     acceptAll: {
       fr: "Accepter tout",
       en: "Accept all",
@@ -82,36 +82,36 @@
     },
   };
 
-  const script = document.getElementById("cookip-script");
-  const color = script.dataset.color;
-  const language = script.dataset.language;
+  var script = document.getElementById("cookip-script");
+  var color = script.dataset.color;
+  var language = script.dataset.language;
 
-  let activeCategory;
-  const setActiveCategory = (newState) => (activeCategory = newState);
+  var activeCategory;
+  var setActiveCategory = (newState) => (activeCategory = newState);
 
-  let cookieOptions = {
+  var cookieOptions = {
     statistics: null,
     marketing: null,
     personnalization: null,
   };
 
-  let cookieOptionSet = false;
+  var cookieOptionSet = false;
 
-  const cookieConsentAlreadySet = () => {
+  var cookieConsentAlreadySet = () => {
     if (script.dataset.preview == "true") return false;
 
-    const isSet = document.cookie.split("; ").some((cookie) => {
+    var isSet = document.cookie.split("; ").some((cookie) => {
       return cookie.startsWith(`cookip_${document.location.hostname}=`);
     });
 
     return isSet;
   };
 
-  const setCookies = (cookie) => {
+  var setCookies = (cookie) => {
     document.body.removeChild(container);
 
     if (!script.dataset.preview) {
-      const value = {
+      var value = {
         statistics: cookie.statistics,
         marketing: cookie.marketing,
         personnalization: cookie.personnalization,
@@ -128,7 +128,7 @@
     document.head.removeChild(script);
   };
 
-  const openOptions = () => {
+  var openOptions = () => {
     bannerContent.style.cssText =
       bannerContent.style.cssText + "flex-direction:column;";
     text.appendChild(optionsContainer);
@@ -142,7 +142,7 @@
     }
   };
 
-  const closeOptions = () => {
+  var closeOptions = () => {
     text.removeChild(optionsContainer);
 
     if (window.screen.width >= 1024) {
@@ -156,7 +156,7 @@
     buttonContainer.append(refuseButtonContainer, acceptButtonContainer);
   };
 
-  const setCookieOption = (name, value) => {
+  var setCookieOption = (name, value) => {
     if (!cookieOptionSet) {
       buttonContainer.removeChild(acceptButtonContainer);
       buttonContainer.removeChild(refuseButtonContainer);
@@ -191,11 +191,11 @@
     }
   };
 
-  const optionSelector = (name) => {
-    const selectorContainer = document.createElement("div");
+  var optionSelector = (name) => {
+    var selectorContainer = document.createElement("div");
     selectorContainer.style.cssText = "display:flex;";
 
-    const checkButton = document.createElement("button");
+    var checkButton = document.createElement("button");
     checkButton.textContent = "✓";
     checkButton.style.cssText =
       'background:0;border:0;color:green;font-size:30px;margin:0 0 0 1em;line-height:unset;padding:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;cursor:pointer;';
@@ -207,7 +207,7 @@
       checkButton.onclick = () => setCookieOption(name, true);
     }
 
-    const crossButton = document.createElement("button");
+    var crossButton = document.createElement("button");
     crossButton.textContent = "✕";
     crossButton.style.cssText =
       'background:0;border:0;color:red;font-size:30px;margin:0;line-height:unset;padding:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;cursor:pointer';
@@ -224,7 +224,7 @@
     return selectorContainer;
   };
 
-  const handleCategoryDetail = (category, detail, carret) => {
+  var handleCategoryDetail = (category, detail, carret) => {
     if (activeCategory) {
       activeCategory.carret.style.cssText =
         activeCategory.carret.style.cssText + "transform: rotate(90deg);";
@@ -242,45 +242,45 @@
     setActiveCategory({ category: category, detail: detail, carret: carret });
   };
 
-  const container = document.createElement("div");
-  const containerWithoutOverlay =
+  var container = document.createElement("div");
+  var containerWithoutOverlay =
     script.dataset.overlay == "true"
       ? "top:0;background-color:rgba(0, 0, 0, 0.7)"
       : "";
   container.style.cssText = `position:fixed;bottom:0;width:100%;display:flex;align-items:flex-end;z-index:999999;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;${containerWithoutOverlay};`;
 
-  const banner = document.createElement("div");
-  const bannerPadding =
+  var banner = document.createElement("div");
+  var bannerPadding =
     window.screen.width < 1024 ? "padding:1em;" : "padding:2em 3em;";
-  const bannerWithoutOverlay =
+  var bannerWithoutOverlay =
     script.dataset.overlay == "true"
       ? ""
       : "box-shadow:0px 0px 24px 12px lightgrey";
   banner.style.cssText = `${bannerPadding};${bannerWithoutOverlay};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;width:100vw;`;
 
-  const header = document.createElement("div");
+  var header = document.createElement("div");
   header.style.cssText =
     "margin-bottom: 16px;display:flex;justify-content:space-between";
 
-  const title = document.createElement("h1");
+  var title = document.createElement("h1");
   title.textContent = TEXT.browsingExperience[language];
   title.style.cssText =
     "font-size: 20px;font-weight: bold;margin:unset;line-height:unset;";
 
-  const technicalCookieDetail = document.createElement("div");
+  var technicalCookieDetail = document.createElement("div");
   technicalCookieDetail.style.cssText =
     "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
   technicalCookieDetail.textContent = TEXT.technicalCookie.detail[language];
 
-  const technicalCookieCarret = document.createElement("span");
+  var technicalCookieCarret = document.createElement("span");
   technicalCookieCarret.textContent = "^";
   technicalCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
-  const technicalCookieTextContent = document.createElement("span");
+  var technicalCookieTextContent = document.createElement("span");
   technicalCookieTextContent.textContent = TEXT.technicalCookie.title[language];
   technicalCookieTextContent.style.cssText = "margin-left: 12px;";
 
-  const technicalCookieHeader = document.createElement("div");
+  var technicalCookieHeader = document.createElement("div");
   technicalCookieHeader.style.cssText =
     "display:flex;align-items:center;font-size:14px;";
   technicalCookieHeader.append(
@@ -288,12 +288,12 @@
     technicalCookieTextContent
   );
 
-  const technicalCookieText = document.createElement("a");
+  var technicalCookieText = document.createElement("a");
   technicalCookieText.style.cssText =
     "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   technicalCookieText.append(technicalCookieHeader, technicalCookieDetail);
 
-  const technicalCookie = document.createElement("div");
+  var technicalCookie = document.createElement("div");
   technicalCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   technicalCookie.append(technicalCookieText, optionSelector("technical"));
@@ -304,20 +304,20 @@
       technicalCookieCarret
     );
 
-  const statisticCookieDetail = document.createElement("div");
+  var statisticCookieDetail = document.createElement("div");
   statisticCookieDetail.style.cssText =
     "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
   statisticCookieDetail.textContent = TEXT.statisticCookie.detail[language];
 
-  const statisticCookieCarret = document.createElement("span");
+  var statisticCookieCarret = document.createElement("span");
   statisticCookieCarret.textContent = "^";
   statisticCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
-  const statisticCookieTextContent = document.createElement("span");
+  var statisticCookieTextContent = document.createElement("span");
   statisticCookieTextContent.textContent = TEXT.statisticCookie.title[language];
   statisticCookieTextContent.style.cssText = "margin-left: 12px;";
 
-  const statisticCookieHeader = document.createElement("div");
+  var statisticCookieHeader = document.createElement("div");
   statisticCookieHeader.style.cssText =
     "display:flex;align-items:center;font-size:14px;";
   statisticCookieHeader.append(
@@ -325,12 +325,12 @@
     statisticCookieTextContent
   );
 
-  const statisticCookieText = document.createElement("a");
+  var statisticCookieText = document.createElement("a");
   statisticCookieText.style.cssText =
     "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   statisticCookieText.append(statisticCookieHeader, statisticCookieDetail);
 
-  const statisticCookie = document.createElement("div");
+  var statisticCookie = document.createElement("div");
   statisticCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   statisticCookie.append(statisticCookieText, optionSelector("statistics"));
@@ -341,55 +341,55 @@
       statisticCookieCarret
     );
 
-  const adCookieDetail = document.createElement("div");
+  var adCookieDetail = document.createElement("div");
   adCookieDetail.style.cssText =
     "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
   adCookieDetail.textContent = TEXT.adCookie.detail[language];
 
-  const adCookieCarret = document.createElement("span");
+  var adCookieCarret = document.createElement("span");
   adCookieCarret.textContent = "^";
   adCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
-  const adCookieTextContent = document.createElement("span");
+  var adCookieTextContent = document.createElement("span");
   adCookieTextContent.textContent = TEXT.adCookie.title[language];
   adCookieTextContent.style.cssText = "margin-left: 12px;";
 
-  const adCookieHeader = document.createElement("div");
+  var adCookieHeader = document.createElement("div");
   adCookieHeader.style.cssText =
     "display:flex;align-items:center;font-size:14px;";
   adCookieHeader.append(adCookieCarret, adCookieTextContent);
 
-  const adCookieText = document.createElement("a");
+  var adCookieText = document.createElement("a");
   adCookieText.style.cssText =
     "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   adCookieText.append(adCookieHeader, adCookieDetail);
 
-  const adCookie = document.createElement("div");
+  var adCookie = document.createElement("div");
   adCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   adCookie.append(adCookieText, optionSelector("personnalization"));
   adCookieText.onclick = () =>
     handleCategoryDetail(adCookie, adCookieDetail, adCookieCarret);
 
-  const adStatisticCookieDetail = document.createElement("div");
+  var adStatisticCookieDetail = document.createElement("div");
   adStatisticCookieDetail.style.cssText =
     "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
   adStatisticCookieDetail.textContent = TEXT.adStatisticCookie.detail[language];
 
-  const adStatisticCarret = document.createElement("span");
+  var adStatisticCarret = document.createElement("span");
   adStatisticCarret.textContent = "^";
   adStatisticCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
 
-  const adStatisticTextContent = document.createElement("span");
+  var adStatisticTextContent = document.createElement("span");
   adStatisticTextContent.textContent = TEXT.adStatisticCookie.title[language];
   adStatisticTextContent.style.cssText = "margin-left: 12px;";
 
-  const adStatisticCookieHeader = document.createElement("div");
+  var adStatisticCookieHeader = document.createElement("div");
   adStatisticCookieHeader.style.cssText =
     "display:flex;align-items:center;font-size:14px;";
   adStatisticCookieHeader.append(adStatisticCarret, adStatisticTextContent);
 
-  const adStatisticCookieText = document.createElement("a");
+  var adStatisticCookieText = document.createElement("a");
   adStatisticCookieText.style.cssText =
     "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   adStatisticCookieText.append(
@@ -397,7 +397,7 @@
     adStatisticCookieDetail
   );
 
-  const adStatisticCookie = document.createElement("div");
+  var adStatisticCookie = document.createElement("div");
   adStatisticCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   adStatisticCookie.append(adStatisticCookieText, optionSelector("marketing"));
@@ -408,7 +408,7 @@
       adStatisticCarret
     );
 
-  const optionsContainer = document.createElement("div");
+  var optionsContainer = document.createElement("div");
   optionsContainer.append(
     technicalCookie,
     statisticCookie,
@@ -416,40 +416,40 @@
     adStatisticCookie
   );
 
-  const optionsButton = document.createElement("button");
+  var optionsButton = document.createElement("button");
   optionsButton.textContent = TEXT.options[language];
   optionsButton.style.cssText = `color:${color};font-weight:bold;font-size:14px;background:0;border:0;padding:0;line-height:unset;cursor:pointer;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
   optionsButton.onclick = () =>
     text.contains(optionsContainer) ? closeOptions() : openOptions();
 
-  const bannerContent = document.createElement("div");
-  const bannerContentMobileCss =
+  var bannerContent = document.createElement("div");
+  var bannerContentMobileCss =
     window.screen.width < 1024 ? "flex-direction:column" : "";
   bannerContent.style.cssText = `display:flex;align-items:center;${bannerContentMobileCss};`;
 
-  const text = document.createElement("div");
+  var text = document.createElement("div");
   text.textContent = `${script.dataset.companyName} ${TEXT.text[language]} `;
   text.style.cssText = "font-size:13px;margin:0 12px 12px 0;";
 
-  const link = document.createElement("a");
+  var link = document.createElement("a");
   link.textContent = TEXT.link[language];
   link.href = script.dataset.privacyPolicyLink;
   link.target = "_blank";
   link.style.cssText = `color:${color};text-decoration:none;`;
 
-  const linkSentence = document.createElement("span");
+  var linkSentence = document.createElement("span");
   linkSentence.textContent = TEXT.linkSentence[language];
   linkSentence.appendChild(link);
 
-  const buttonContainer = document.createElement("div");
-  const buttonContainerMobileCss =
+  var buttonContainer = document.createElement("div");
+  var buttonContainerMobileCss =
     window.screen.width < 1024
       ? "flex-direction:column;align-items:center"
       : "";
   buttonContainer.style.cssText = `display:flex;${buttonContainerMobileCss};`;
 
-  const refuseButtonContainer = document.createElement("div");
-  const refuseButton = document.createElement("button");
+  var refuseButtonContainer = document.createElement("div");
+  var refuseButton = document.createElement("button");
   refuseButton.textContent = TEXT.refuse[language];
   refuseButton.style.cssText = `cursor:pointer;width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
   refuseButton.onclick = () =>
@@ -459,15 +459,15 @@
       personnalization: false,
     });
 
-  const acceptButtonContainer = document.createElement("div");
-  const acceptButton = document.createElement("button");
+  var acceptButtonContainer = document.createElement("div");
+  var acceptButton = document.createElement("button");
   acceptButton.textContent = TEXT.accept[language];
   acceptButton.style.cssText = `cursor:pointer;width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
   acceptButton.onclick = () =>
     setCookies({ statistics: true, marketing: true, personnalization: true });
 
-  const saveButtonContainer = document.createElement("div");
-  const saveButton = document.createElement("button");
+  var saveButtonContainer = document.createElement("div");
+  var saveButton = document.createElement("button");
   saveButton.textContent = TEXT.save[language];
   saveButton.style.cssText = `cursor:pointer;width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;opacity:0.3;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
   saveButton.disabled = true;
@@ -484,7 +484,7 @@
   acceptButtonContainer.appendChild(acceptButton);
   saveButtonContainer.appendChild(saveButton);
 
-  const displayBanner = () => {
+  var displayBanner = () => {
     if (cookieConsentAlreadySet()) return document.head.removeChild(script);
     document.body.appendChild(container);
   };

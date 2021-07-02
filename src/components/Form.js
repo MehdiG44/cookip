@@ -15,7 +15,7 @@ const Form = () => {
 
   const submitForm = async (event) => {
     event.preventDefault();
-    if (!companyName || !privacyPolicyLink) return;
+    if (!companyName) return;
 
     const url = `${window.location.href}/banner.js`;
 
@@ -27,7 +27,11 @@ const Form = () => {
         s.dataset.color = "${color}";
         s.dataset.language = "${language}";
         s.dataset.overlay = "${overlay}";
-        s.dataset.privacyPolicyLink = "${privacyPolicyLink}";
+        ${
+          privacyPolicyLink
+            ? `s.dataset.privacyPolicyLink = "${privacyPolicyLink}";`
+            : ";"
+        }
         s.dataset.companyName = "${companyName}";s.src = "${url}";
         document.head.appendChild(s);
       </script>`
@@ -45,7 +49,9 @@ const Form = () => {
     scriptElement.dataset.color = color;
     scriptElement.dataset.language = language;
     scriptElement.dataset.overlay = overlay;
-    scriptElement.dataset.privacyPolicyLink = privacyPolicyLink;
+    if (privacyPolicyLink) {
+      scriptElement.dataset.privacyPolicyLink = privacyPolicyLink;
+    }
     scriptElement.dataset.companyName = companyName;
     scriptElement.dataset.preview = true;
     setScript("");
@@ -107,7 +113,6 @@ const Form = () => {
           placeholder="https://www.example.com/cookies"
           onChange={(event) => setPrivacyPolicyLink(event.target.value)}
           className="border p-2 rounded-md"
-          required="required"
         />
         <label className="mt-14 mb-6 text-xl">
           <span className="border-b border-blue-600 pb-2">Company name</span>

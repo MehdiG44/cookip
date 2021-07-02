@@ -28,13 +28,17 @@
       fr: "Options",
       en: "Options",
     },
+    text: {
+      fr: "et ses partenaires déposent des cookies et utilisent des informations non sensibles provenant de votre appareil pour améliorer ses produits, afficher des publicités et proposer des contenus personnalisés. Vous pouvez accepter ou refuser ces services. Vos choix sont conservés pendant 12 mois.",
+      en: " and its partners save cookies and use non sensitive information from your device to improve its products, display advertisement and present personalized content. You can accept or refuse those services. Your choices are saved for 12 months.",
+    },
+    linkSentence: {
+      fr: " Pour en savoir plus sur les cookies, les données utilisées et leur traitement, vous pouvez consulter notre ",
+      en: " To know more about cookies, information used and its usage, you can refer to our ",
+    },
     link: {
       fr: "politique en matière de cookies.",
       en: "cookie consent policy.",
-    },
-    text: {
-      fr: "et ses partenaires déposent des cookies et utilisent des informations non sensibles provenant de votre appareil pour améliorer ses produits, afficher des publicités et proposer des contenus personnalisés. Vous pouvez accepter ou refuser ces services. Vos choix sont conservés pendant 12 mois. Pour en savoir plus sur les cookies, les données utilisées et leur traitement, vous pouvez consulter notre",
-      en: " and its partners save cookies and use non sensitive information from your device to improve its products, display advertisement and present personalized content. You can accept or refuse those services. Your choices are saved for 12 months. To know more about cookies, information used and its usage, you can refer to our",
     },
     technicalCookie: {
       title: {
@@ -432,6 +436,10 @@
   link.target = "_blank";
   link.style.cssText = `color:${color};`;
 
+  const linkSentence = document.createElement("span");
+  linkSentence.textContent = TEXT.linkSentence[language];
+  linkSentence.appendChild(link);
+
   const buttonContainer = document.createElement("div");
   const buttonContainerMobileCss =
     window.screen.width < 1024
@@ -470,7 +478,7 @@
   header.append(title, optionsButton);
   bannerContent.append(text, buttonContainer);
   buttonContainer.append(refuseButtonContainer, acceptButtonContainer);
-  text.appendChild(link);
+  if (script.dataset.privacyPolicyLink) text.appendChild(linkSentence);
   refuseButtonContainer.appendChild(refuseButton);
   acceptButtonContainer.appendChild(acceptButton);
   saveButtonContainer.appendChild(saveButton);

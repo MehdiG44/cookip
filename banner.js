@@ -160,7 +160,8 @@
     acceptButton.textContent = TEXT.accept[language];
     refuseButton.textContent = TEXT.refuse[language];
     if (cookieOptionSet) buttonContainer.removeChild(saveButtonContainer);
-    buttonContainer.append(refuseButtonContainer, acceptButtonContainer);
+    buttonContainer.appendChild(refuseButtonContainer);
+    buttonContainer.appendChild(acceptButtonContainer);
   }
 
   function setCookieOption(name, value) {
@@ -239,7 +240,8 @@
       };
     }
 
-    selectorContainer.append(crossButton, checkButton);
+    selectorContainer.appendChild(crossButton);
+    selectorContainer.appendChild(checkButton);
     return selectorContainer;
   }
 
@@ -312,20 +314,20 @@
   var technicalCookieHeader = document.createElement("div");
   technicalCookieHeader.style.cssText =
     "display:flex;align-items:center;font-size:14px;";
-  technicalCookieHeader.append(
-    technicalCookieCarret,
-    technicalCookieTextContent
-  );
+  technicalCookieHeader.appendChild(technicalCookieCarret);
+  technicalCookieHeader.appendChild(technicalCookieTextContent);
 
   var technicalCookieText = document.createElement("a");
   technicalCookieText.style.cssText =
     "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
-  technicalCookieText.append(technicalCookieHeader, technicalCookieDetail);
+  technicalCookieText.appendChild(technicalCookieHeader);
+  technicalCookieText.appendChild(technicalCookieDetail);
 
   var technicalCookie = document.createElement("div");
   technicalCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
-  technicalCookie.append(technicalCookieText, optionSelector("technical"));
+  technicalCookie.appendChild(technicalCookieText);
+  technicalCookie.appendChild(optionSelector("technical"));
   technicalCookieText.onclick = function () {
     handleCategoryDetail(
       technicalCookie,
@@ -353,20 +355,20 @@
   var statisticCookieHeader = document.createElement("div");
   statisticCookieHeader.style.cssText =
     "display:flex;align-items:center;font-size:14px;";
-  statisticCookieHeader.append(
-    statisticCookieCarret,
-    statisticCookieTextContent
-  );
+  statisticCookieHeader.appendChild(statisticCookieCarret);
+  statisticCookieHeader.appendChild(statisticCookieTextContent);
 
   var statisticCookieText = document.createElement("a");
   statisticCookieText.style.cssText =
     "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
-  statisticCookieText.append(statisticCookieHeader, statisticCookieDetail);
+  statisticCookieText.appendChild(statisticCookieHeader);
+  statisticCookieText.appendChild(statisticCookieDetail);
 
   var statisticCookie = document.createElement("div");
   statisticCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
-  statisticCookie.append(statisticCookieText, optionSelector("statistics"));
+  statisticCookie.appendChild(statisticCookieText);
+  statisticCookie.appendChild(optionSelector("statistics"));
   statisticCookieText.onclick = function () {
     handleCategoryDetail(
       statisticCookie,
@@ -394,17 +396,20 @@
   var adCookieHeader = document.createElement("div");
   adCookieHeader.style.cssText =
     "display:flex;align-items:center;font-size:14px;";
-  adCookieHeader.append(adCookieCarret, adCookieTextContent);
+  adCookieHeader.appendChild(adCookieCarret);
+  adCookieHeader.appendChild(adCookieTextContent);
 
   var adCookieText = document.createElement("a");
   adCookieText.style.cssText =
     "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
-  adCookieText.append(adCookieHeader, adCookieDetail);
+  adCookieText.appendChild(adCookieHeader);
+  adCookieText.appendChild(adCookieDetail);
 
   var adCookie = document.createElement("div");
   adCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
-  adCookie.append(adCookieText, optionSelector("personnalization"));
+  adCookie.appendChild(adCookieText);
+  adCookie.appendChild(optionSelector("personnalization"));
   adCookieText.onclick = function () {
     handleCategoryDetail(adCookie, adCookieDetail, adCookieCarret);
   };
@@ -428,20 +433,20 @@
   var adStatisticCookieHeader = document.createElement("div");
   adStatisticCookieHeader.style.cssText =
     "display:flex;align-items:center;font-size:14px;";
-  adStatisticCookieHeader.append(adStatisticCarret, adStatisticTextContent);
+  adStatisticCookieHeader.appendChild(adStatisticCarret);
+  adStatisticCookieHeader.appendChild(adStatisticTextContent);
 
   var adStatisticCookieText = document.createElement("a");
   adStatisticCookieText.style.cssText =
     "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
-  adStatisticCookieText.append(
-    adStatisticCookieHeader,
-    adStatisticCookieDetail
-  );
+  adStatisticCookieText.appendChild(adStatisticCookieHeader);
+  adStatisticCookieText.appendChild(adStatisticCookieDetail);
 
   var adStatisticCookie = document.createElement("div");
   adStatisticCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
-  adStatisticCookie.append(adStatisticCookieText, optionSelector("marketing"));
+  adStatisticCookie.appendChild(adStatisticCookieText);
+  adStatisticCookie.appendChild(optionSelector("marketing"));
   adStatisticCookieText.onclick = function () {
     handleCategoryDetail(
       adStatisticCookie,
@@ -451,12 +456,10 @@
   };
 
   var optionsContainer = document.createElement("div");
-  optionsContainer.append(
-    technicalCookie,
-    statisticCookie,
-    adCookie,
-    adStatisticCookie
-  );
+  optionsContainer.appendChild(technicalCookie);
+  optionsContainer.appendChild(statisticCookie);
+  optionsContainer.appendChild(adCookie);
+  optionsContainer.appendChild(adStatisticCookie);
 
   var optionsButton = document.createElement("button");
   optionsButton.textContent = TEXT.options[language];
@@ -543,10 +546,14 @@
   };
 
   container.appendChild(banner);
-  banner.append(header, bannerContent);
-  header.append(title, optionsButton);
-  bannerContent.append(text, buttonContainer);
-  buttonContainer.append(refuseButtonContainer, acceptButtonContainer);
+  banner.appendChild(header);
+  banner.appendChild(bannerContent);
+  header.appendChild(title);
+  header.appendChild(optionsButton);
+  bannerContent.appendChild(text);
+  bannerContent.appendChild(buttonContainer);
+  buttonContainer.appendChild(refuseButtonContainer);
+  buttonContainer.appendChild(acceptButtonContainer);
   if (script.dataset.privacyPolicyLink) text.appendChild(linkSentence);
   refuseButtonContainer.appendChild(refuseButton);
   acceptButtonContainer.appendChild(acceptButton);

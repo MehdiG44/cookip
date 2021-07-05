@@ -32,13 +32,13 @@ const App = () => {
       <h1 className="text-blue-600 text-6xl font-title font-bold w-11/12 text-center my-8">
         COOKIP
       </h1>
-      <div className="text-lg text-center mb-2">
+      <div className="text-lg text-center mb-2 mx-2">
         Free cookie consent banner script generator.
       </div>
-      <div className="text-lg text-center mb-2">
+      <div className="text-lg text-center mb-2 mx-2">
         Can be used on its own or via Google Tag Manager.
       </div>
-      <div className="text-lg text-center">
+      <div className="text-lg text-center mx-2">
         Available in English and French.
       </div>
       <Form />

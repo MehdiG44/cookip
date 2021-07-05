@@ -1,6 +1,8 @@
 "use strict";
 
 (function () {
+  if (window.document.documentMode) return;
+
   var TEXT = {
     acceptAll: {
       fr: "Accepter tout",

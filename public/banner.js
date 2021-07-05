@@ -552,10 +552,10 @@
   acceptButtonContainer.appendChild(acceptButton);
   saveButtonContainer.appendChild(saveButton);
 
-  var displayBanner = function () {
+  function displayBanner() {
     if (cookieConsentAlreadySet()) return document.head.removeChild(script);
     document.body.appendChild(container);
-  };
+  }
 
   if (["interactive", "complete"].includes(document.readyState)) {
     displayBanner();

@@ -105,7 +105,7 @@
     if (script.dataset.preview == "true") return false;
 
     var isSet = document.cookie.split("; ").some(function (cookie) {
-      return cookie.startsWith("cookip_" + document.location.hostname + "=");
+      return cookie.substring(0, 7) === "cookip_";
     });
 
     return isSet;

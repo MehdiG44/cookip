@@ -514,7 +514,7 @@
   var refuseButton = document.createElement("button");
   refuseButton.textContent = TEXT.refuse[language];
   refuseButton.style.cssText =
-    "cursor:pointer;width:max-content;min-width:8em;color:white;background-color:" +
+    "cursor:pointer;width: -webkit-max-content;width: -moz-max-content;width: max-content;min-width:8em;color:white;background-color:" +
     color +
     ";border-width:1px;border-color:" +
     color +
@@ -531,7 +531,7 @@
   var acceptButton = document.createElement("button");
   acceptButton.textContent = TEXT.accept[language];
   acceptButton.style.cssText =
-    "cursor:pointer;width:max-content;min-width:8em;color:white;background-color:" +
+    "cursor:pointer;width: -webkit-max-content;width: -moz-max-content;width: max-content;min-width:8em;color:white;background-color:" +
     color +
     ";border-width:1px;border-color:" +
     color +
@@ -544,7 +544,7 @@
   var saveButton = document.createElement("button");
   saveButton.textContent = TEXT.save[language];
   saveButton.style.cssText =
-    "cursor:pointer;width:max-content;min-width:8em;color:white;background-color:" +
+    "cursor:pointer;width: -webkit-max-content;width: -moz-max-content;width: max-content;min-width:8em;color:white;background-color:" +
     color +
     ";border-width:1px;border-color:" +
     color +

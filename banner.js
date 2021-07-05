@@ -564,7 +564,7 @@
     document.body.appendChild(container);
   }
 
-  if (["interactive", "complete"].includes(document.readyState)) {
+  if (["interactive", "complete"].indexOf(document.readyState) > -1) {
     displayBanner();
   } else {
     document.addEventListener("DOMContentLoaded", function () {

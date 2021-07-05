@@ -1,4 +1,6 @@
-(() => {
+"use strict";
+
+(function () {
   var TEXT = {
     acceptAll: {
       fr: "Accepter tout",
@@ -87,7 +89,9 @@
   var language = script.dataset.language;
 
   var activeCategory;
-  var setActiveCategory = (newState) => (activeCategory = newState);
+  function setActiveCategory(newState) {
+    activeCategory = newState;
+  }
 
   var cookieOptions = {
     statistics: null,
@@ -97,17 +101,17 @@
 
   var cookieOptionSet = false;
 
-  var cookieConsentAlreadySet = () => {
+  function cookieConsentAlreadySet() {
     if (script.dataset.preview == "true") return false;
 
-    var isSet = document.cookie.split("; ").some((cookie) => {
-      return cookie.startsWith(`cookip_${document.location.hostname}=`);
+    var isSet = document.cookie.split("; ").some(function (cookie) {
+      return cookie.startsWith("cookip_" + document.location.hostname + "=");
     });
 
     return isSet;
-  };
+  }
 
-  var setCookies = (cookie) => {
+  function setCookies(cookie) {
     document.body.removeChild(container);
 
     if (!script.dataset.preview) {
@@ -118,17 +122,20 @@
         necessary: true,
       };
 
-      document.cookie = `cookip_${document.location.hostname}=${JSON.stringify(
-        value
-      )};max-age=31560000`;
+      document.cookie =
+        "cookip_" +
+        document.location.hostname +
+        "=" +
+        JSON.stringify(value) +
+        ";max-age=31560000";
 
       window.dispatchEvent(new Event("cookip_set"));
     }
 
     document.head.removeChild(script);
-  };
+  }
 
-  var openOptions = () => {
+  function openOptions() {
     bannerContent.style.cssText =
       bannerContent.style.cssText + "flex-direction:column;";
     text.appendChild(optionsContainer);
@@ -140,9 +147,9 @@
       buttonContainer.removeChild(refuseButtonContainer);
       buttonContainer.appendChild(saveButtonContainer);
     }
-  };
+  }
 
-  var closeOptions = () => {
+  function closeOptions() {
     text.removeChild(optionsContainer);
 
     if (window.screen.width >= 1024) {
@@ -154,9 +161,9 @@
     refuseButton.textContent = TEXT.refuse[language];
     if (cookieOptionSet) buttonContainer.removeChild(saveButtonContainer);
     buttonContainer.append(refuseButtonContainer, acceptButtonContainer);
-  };
+  }
 
-  var setCookieOption = (name, value) => {
+  function setCookieOption(name, value) {
     if (!cookieOptionSet) {
       buttonContainer.removeChild(acceptButtonContainer);
       buttonContainer.removeChild(refuseButtonContainer);
@@ -165,8 +172,12 @@
 
     cookieOptionSet = true;
     cookieOptions[name] = value;
-    currentCrossButton = document.querySelector(`[name="${name}"]:first-child`);
-    currentCheckButton = document.querySelector(`[name="${name}"]:last-child`);
+    var currentCrossButton = document.querySelector(
+      '[name="' + name + '"]:first-child'
+    );
+    var currentCheckButton = document.querySelector(
+      '[name="' + name + '"]:last-child'
+    );
 
     if (value) {
       currentCheckButton.style.cssText =
@@ -180,7 +191,11 @@
         currentCrossButton.style.cssText + "opacity:1";
     }
 
-    if (Object.values(cookieOptions).every((option) => option !== null)) {
+    if (
+      Object.values(cookieOptions).every(function (option) {
+        return option !== null;
+      })
+    ) {
       saveButton.disabled = false;
       saveButton.style.cursor = "pointer";
       saveButton.style.cssText = saveButton.style.cssText + "opacity:1";
@@ -189,9 +204,9 @@
       saveButton.style.cursor = "default";
       saveButton.style.cssText = saveButton.style.cssText + "opacity:0.3";
     }
-  };
+  }
 
-  var optionSelector = (name) => {
+  function optionSelector(name) {
     var selectorContainer = document.createElement("div");
     selectorContainer.style.cssText = "display:flex;";
 
@@ -204,7 +219,9 @@
       checkButton.disabled = true;
       checkButton.style.cursor = "default";
     } else {
-      checkButton.onclick = () => setCookieOption(name, true);
+      checkButton.onclick = function () {
+        setCookieOption(name, true);
+      };
     }
 
     var crossButton = document.createElement("button");
@@ -217,14 +234,16 @@
       crossButton.style.cursor = "default";
       crossButton.style.cssText = crossButton.style.cssText + "opacity:0.2";
     } else {
-      crossButton.onclick = () => setCookieOption(name, false);
+      crossButton.onclick = function () {
+        setCookieOption(name, false);
+      };
     }
 
     selectorContainer.append(crossButton, checkButton);
     return selectorContainer;
-  };
+  }
 
-  var handleCategoryDetail = (category, detail, carret) => {
+  function handleCategoryDetail(category, detail, carret) {
     if (activeCategory) {
       activeCategory.carret.style.cssText =
         activeCategory.carret.style.cssText + "transform: rotate(90deg);";
@@ -240,14 +259,17 @@
     carret.style.cssText = carret.style.cssText + "transform: rotate(180deg);";
     detail.style.cssText = detail.style.cssText + "max-height:300px;";
     setActiveCategory({ category: category, detail: detail, carret: carret });
-  };
+  }
 
   var container = document.createElement("div");
   var containerWithoutOverlay =
     script.dataset.overlay == "true"
       ? "top:0;background-color:rgba(0, 0, 0, 0.7)"
       : "";
-  container.style.cssText = `position:fixed;bottom:0;width:100%;display:flex;align-items:flex-end;z-index:999999;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;${containerWithoutOverlay};`;
+  container.style.cssText =
+    'position:fixed;bottom:0;width:100%;display:flex;align-items:flex-end;z-index:999999;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;' +
+    containerWithoutOverlay +
+    ";";
 
   var banner = document.createElement("div");
   var bannerPadding =
@@ -256,7 +278,11 @@
     script.dataset.overlay == "true"
       ? ""
       : "box-shadow:0px 0px 24px 12px lightgrey";
-  banner.style.cssText = `${bannerPadding};${bannerWithoutOverlay};background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;width:100vw;`;
+  banner.style.cssText =
+    bannerPadding +
+    ";" +
+    bannerWithoutOverlay +
+    ";background-color:white;border-top-left-radius:8px;border-top-right-radius:8px;max-height:100%;overflow:auto;width:100vw;";
 
   var header = document.createElement("div");
   header.style.cssText =
@@ -274,7 +300,10 @@
 
   var technicalCookieCarret = document.createElement("span");
   technicalCookieCarret.textContent = "^";
-  technicalCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
+  technicalCookieCarret.style.cssText =
+    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: " +
+    color +
+    ";height:20px;line-height:30px;transition:transform 100ms linear 0s;";
 
   var technicalCookieTextContent = document.createElement("span");
   technicalCookieTextContent.textContent = TEXT.technicalCookie.title[language];
@@ -297,12 +326,13 @@
   technicalCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   technicalCookie.append(technicalCookieText, optionSelector("technical"));
-  technicalCookieText.onclick = () =>
+  technicalCookieText.onclick = function () {
     handleCategoryDetail(
       technicalCookie,
       technicalCookieDetail,
       technicalCookieCarret
     );
+  };
 
   var statisticCookieDetail = document.createElement("div");
   statisticCookieDetail.style.cssText =
@@ -311,7 +341,10 @@
 
   var statisticCookieCarret = document.createElement("span");
   statisticCookieCarret.textContent = "^";
-  statisticCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
+  statisticCookieCarret.style.cssText =
+    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: " +
+    color +
+    ";height:20px;line-height:30px;transition:transform 100ms linear 0s;";
 
   var statisticCookieTextContent = document.createElement("span");
   statisticCookieTextContent.textContent = TEXT.statisticCookie.title[language];
@@ -334,12 +367,13 @@
   statisticCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   statisticCookie.append(statisticCookieText, optionSelector("statistics"));
-  statisticCookieText.onclick = () =>
+  statisticCookieText.onclick = function () {
     handleCategoryDetail(
       statisticCookie,
       statisticCookieDetail,
       statisticCookieCarret
     );
+  };
 
   var adCookieDetail = document.createElement("div");
   adCookieDetail.style.cssText =
@@ -348,7 +382,10 @@
 
   var adCookieCarret = document.createElement("span");
   adCookieCarret.textContent = "^";
-  adCookieCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
+  adCookieCarret.style.cssText =
+    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: " +
+    color +
+    ";height:20px;line-height:30px;transition:transform 100ms linear 0s;";
 
   var adCookieTextContent = document.createElement("span");
   adCookieTextContent.textContent = TEXT.adCookie.title[language];
@@ -368,8 +405,9 @@
   adCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   adCookie.append(adCookieText, optionSelector("personnalization"));
-  adCookieText.onclick = () =>
+  adCookieText.onclick = function () {
     handleCategoryDetail(adCookie, adCookieDetail, adCookieCarret);
+  };
 
   var adStatisticCookieDetail = document.createElement("div");
   adStatisticCookieDetail.style.cssText =
@@ -378,7 +416,10 @@
 
   var adStatisticCarret = document.createElement("span");
   adStatisticCarret.textContent = "^";
-  adStatisticCarret.style.cssText = `transform: rotate(90deg);font-size: 30px;font-family: monospace;color: ${color};height:20px;line-height:30px;transition:transform 100ms linear 0s;`;
+  adStatisticCarret.style.cssText =
+    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: " +
+    color +
+    ";height:20px;line-height:30px;transition:transform 100ms linear 0s;";
 
   var adStatisticTextContent = document.createElement("span");
   adStatisticTextContent.textContent = TEXT.adStatisticCookie.title[language];
@@ -401,12 +442,13 @@
   adStatisticCookie.style.cssText =
     "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   adStatisticCookie.append(adStatisticCookieText, optionSelector("marketing"));
-  adStatisticCookieText.onclick = () =>
+  adStatisticCookieText.onclick = function () {
     handleCategoryDetail(
       adStatisticCookie,
       adStatisticCookieDetail,
       adStatisticCarret
     );
+  };
 
   var optionsContainer = document.createElement("div");
   optionsContainer.append(
@@ -418,24 +460,30 @@
 
   var optionsButton = document.createElement("button");
   optionsButton.textContent = TEXT.options[language];
-  optionsButton.style.cssText = `color:${color};font-weight:bold;font-size:14px;background:0;border:0;padding:0;line-height:unset;cursor:pointer;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
-  optionsButton.onclick = () =>
+  optionsButton.style.cssText =
+    "color:" +
+    color +
+    ';font-weight:bold;font-size:14px;background:0;border:0;padding:0;line-height:unset;cursor:pointer;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;';
+  optionsButton.onclick = function () {
     text.contains(optionsContainer) ? closeOptions() : openOptions();
+  };
 
   var bannerContent = document.createElement("div");
   var bannerContentMobileCss =
     window.screen.width < 1024 ? "flex-direction:column" : "";
-  bannerContent.style.cssText = `display:flex;align-items:center;${bannerContentMobileCss};`;
+  bannerContent.style.cssText =
+    "display:flex;align-items:center;" + bannerContentMobileCss + ";";
 
   var text = document.createElement("div");
-  text.textContent = `${script.dataset.companyName} ${TEXT.text[language]} `;
+  text.textContent =
+    script.dataset.companyName + " " + TEXT.text[language] + " ";
   text.style.cssText = "font-size:13px;margin:0 12px 12px 0;";
 
   var link = document.createElement("a");
   link.textContent = TEXT.link[language];
   link.href = script.dataset.privacyPolicyLink;
   link.target = "_blank";
-  link.style.cssText = `color:${color};text-decoration:none;`;
+  link.style.cssText = "color:" + color + ";text-decoration:none;";
 
   var linkSentence = document.createElement("span");
   linkSentence.textContent = TEXT.linkSentence[language];
@@ -446,33 +494,53 @@
     window.screen.width < 1024
       ? "flex-direction:column;align-items:center"
       : "";
-  buttonContainer.style.cssText = `display:flex;${buttonContainerMobileCss};`;
+  buttonContainer.style.cssText =
+    "display:flex;" + buttonContainerMobileCss + ";";
 
   var refuseButtonContainer = document.createElement("div");
   var refuseButton = document.createElement("button");
   refuseButton.textContent = TEXT.refuse[language];
-  refuseButton.style.cssText = `cursor:pointer;width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
-  refuseButton.onclick = () =>
+  refuseButton.style.cssText =
+    "cursor:pointer;width:max-content;min-width:8em;color:white;background-color:" +
+    color +
+    ";border-width:1px;border-color:" +
+    color +
+    ';border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;';
+  refuseButton.onclick = function () {
     setCookies({
       statistics: false,
       marketing: false,
       personnalization: false,
     });
+  };
 
   var acceptButtonContainer = document.createElement("div");
   var acceptButton = document.createElement("button");
   acceptButton.textContent = TEXT.accept[language];
-  acceptButton.style.cssText = `cursor:pointer;width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
-  acceptButton.onclick = () =>
+  acceptButton.style.cssText =
+    "cursor:pointer;width:max-content;min-width:8em;color:white;background-color:" +
+    color +
+    ";border-width:1px;border-color:" +
+    color +
+    ';border-radius:8px;margin:12px;padding:8px 18px;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;';
+  acceptButton.onclick = function () {
     setCookies({ statistics: true, marketing: true, personnalization: true });
+  };
 
   var saveButtonContainer = document.createElement("div");
   var saveButton = document.createElement("button");
   saveButton.textContent = TEXT.save[language];
-  saveButton.style.cssText = `cursor:pointer;width:max-content;min-width:8em;color:white;background-color:${color};border-width:1px;border-color:${color};border-radius:8px;margin:12px;padding:8px 18px;opacity:0.3;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;`;
+  saveButton.style.cssText =
+    "cursor:pointer;width:max-content;min-width:8em;color:white;background-color:" +
+    color +
+    ";border-width:1px;border-color:" +
+    color +
+    ';border-radius:8px;margin:12px;padding:8px 18px;opacity:0.3;line-height:unset;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;font-size:16px;';
   saveButton.disabled = true;
   saveButton.style.cursor = "default";
-  saveButton.onclick = () => setCookies(cookieOptions);
+  saveButton.onclick = function () {
+    setCookies(cookieOptions);
+  };
 
   container.appendChild(banner);
   banner.append(header, bannerContent);
@@ -484,7 +552,7 @@
   acceptButtonContainer.appendChild(acceptButton);
   saveButtonContainer.appendChild(saveButton);
 
-  var displayBanner = () => {
+  var displayBanner = function () {
     if (cookieConsentAlreadySet()) return document.head.removeChild(script);
     document.body.appendChild(container);
   };
@@ -492,7 +560,7 @@
   if (["interactive", "complete"].includes(document.readyState)) {
     displayBanner();
   } else {
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", function () {
       displayBanner();
     });
   }

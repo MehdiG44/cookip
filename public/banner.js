@@ -137,7 +137,8 @@
 
   function openOptions() {
     bannerContent.style.cssText =
-      bannerContent.style.cssText + "flex-direction:column;";
+      bannerContent.style.cssText +
+      "-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;";
     text.appendChild(optionsContainer);
     acceptButton.textContent = TEXT.acceptAll[language];
     refuseButton.textContent = TEXT.refuseAll[language];
@@ -154,7 +155,8 @@
 
     if (window.screen.width >= 1024) {
       bannerContent.style.cssText =
-        bannerContent.style.cssText + "flex-direction:row;";
+        bannerContent.style.cssText +
+        "-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;";
     }
 
     acceptButton.textContent = TEXT.accept[language];
@@ -209,7 +211,8 @@
 
   function optionSelector(name) {
     var selectorContainer = document.createElement("div");
-    selectorContainer.style.cssText = "display:flex;";
+    selectorContainer.style.cssText =
+      "display: -webkit-box;display: -ms-flexbox;display: flex;";
 
     var checkButton = document.createElement("button");
     checkButton.textContent = "✓";
@@ -248,7 +251,8 @@
   function handleCategoryDetail(category, detail, carret) {
     if (activeCategory) {
       activeCategory.carret.style.cssText =
-        activeCategory.carret.style.cssText + "transform: rotate(90deg);";
+        activeCategory.carret.style.cssText +
+        "-webkit-transform: rotate(90deg);-ms-transform: rotate(90deg);transform: rotate(90deg);";
       activeCategory.detail.style.cssText =
         activeCategory.detail.style.cssText + "max-height:0;";
 
@@ -258,7 +262,9 @@
       }
     }
 
-    carret.style.cssText = carret.style.cssText + "transform: rotate(180deg);";
+    carret.style.cssText =
+      carret.style.cssText +
+      "-webkit-transform: rotate(180deg);-ms-transform: rotate(180deg);transform: rotate(180deg);";
     detail.style.cssText = detail.style.cssText + "max-height:300px;";
     setActiveCategory({ category: category, detail: detail, carret: carret });
   }
@@ -269,7 +275,7 @@
       ? "top:0;background-color:rgba(0, 0, 0, 0.7)"
       : "";
   container.style.cssText =
-    'position:fixed;bottom:0;width:100%;display:flex;align-items:flex-end;z-index:999999;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;' +
+    'display: -webkit-box;display: -ms-flexbox;-webkit-box-align: end;-ms-flex-align: end;position:fixed;bottom:0;width:100%;display:flex;align-items:flex-end;z-index:999999;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;' +
     containerWithoutOverlay +
     ";";
 
@@ -288,7 +294,7 @@
 
   var header = document.createElement("div");
   header.style.cssText =
-    "margin-bottom: 16px;display:flex;justify-content:space-between";
+    "display: -webkit-box;display: -ms-flexbox;-webkit-box-pack: justify;-ms-flex-pack: justify;margin-bottom: 16px;display:flex;justify-content:space-between";
 
   var title = document.createElement("h1");
   title.textContent = TEXT.browsingExperience[language];
@@ -297,15 +303,15 @@
 
   var technicalCookieDetail = document.createElement("div");
   technicalCookieDetail.style.cssText =
-    "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
+    "-ms-flex-preferred-size: 100%;flex-basis: 100%;font-weight: normal;margin-top: 8px;overflow: hidden;-webkit-transition: max-height 300ms ease-out 0s;-o-transition: max-height 300ms ease-out 0s;transition: max-height 300ms ease-out 0s;max-height: 0px;";
   technicalCookieDetail.textContent = TEXT.technicalCookie.detail[language];
 
   var technicalCookieCarret = document.createElement("span");
   technicalCookieCarret.textContent = "^";
   technicalCookieCarret.style.cssText =
-    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: " +
+    "font-size: 30px;font-family: monospace;color: " +
     color +
-    ";height:20px;line-height:30px;transition:transform 100ms linear 0s;";
+    ";height:20px;line-height:30px;-webkit-transition: -webkit-transform 100ms linear 0s;transition: -webkit-transform 100ms linear 0s;-o-transition: transform 100ms linear 0s;transition: transform 100ms linear 0s;transition: transform 100ms linear 0s, -webkit-transform 100ms linear 0s;-webkit-transform: rotate(90deg);-ms-transform: rotate(90deg);transform: rotate(90deg);";
 
   var technicalCookieTextContent = document.createElement("span");
   technicalCookieTextContent.textContent = TEXT.technicalCookie.title[language];
@@ -313,19 +319,19 @@
 
   var technicalCookieHeader = document.createElement("div");
   technicalCookieHeader.style.cssText =
-    "display:flex;align-items:center;font-size:14px;";
+    "font-size:14px;display: -webkit-box;display: -ms-flexbox;display:flex;-webkit-box-align: center;-ms-flex-align: center;align-items:center;";
   technicalCookieHeader.appendChild(technicalCookieCarret);
   technicalCookieHeader.appendChild(technicalCookieTextContent);
 
   var technicalCookieText = document.createElement("a");
   technicalCookieText.style.cssText =
-    "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
+    "width:70%;display: -webkit-box;display: -ms-flexbox;-webkit-box-orient: vertical;-webkit-box-direction: normal;-ms-flex-direction: column;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   technicalCookieText.appendChild(technicalCookieHeader);
   technicalCookieText.appendChild(technicalCookieDetail);
 
   var technicalCookie = document.createElement("div");
   technicalCookie.style.cssText =
-    "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
+    "margin:16px 0;display: -webkit-box;display: -ms-flexbox;-webkit-box-align: baseline;-ms-flex-align: baseline;-ms-flex-pack: distribute;-ms-flex-wrap: wrap;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   technicalCookie.appendChild(technicalCookieText);
   technicalCookie.appendChild(optionSelector("technical"));
   technicalCookieText.onclick = function () {
@@ -338,15 +344,15 @@
 
   var statisticCookieDetail = document.createElement("div");
   statisticCookieDetail.style.cssText =
-    "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
+    "-ms-flex-preferred-size: 100%;flex-basis: 100%;font-weight: normal;margin-top: 8px;overflow: hidden;-webkit-transition: max-height 300ms ease-out 0s;-o-transition: max-height 300ms ease-out 0s;transition: max-height 300ms ease-out 0s;max-height: 0px;";
   statisticCookieDetail.textContent = TEXT.statisticCookie.detail[language];
 
   var statisticCookieCarret = document.createElement("span");
   statisticCookieCarret.textContent = "^";
   statisticCookieCarret.style.cssText =
-    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: " +
+    "font-size: 30px;font-family: monospace;color: " +
     color +
-    ";height:20px;line-height:30px;transition:transform 100ms linear 0s;";
+    ";height:20px;line-height:30px;-webkit-transition: -webkit-transform 100ms linear 0s;transition: -webkit-transform 100ms linear 0s;-o-transition: transform 100ms linear 0s;transition: transform 100ms linear 0s;transition: transform 100ms linear 0s, -webkit-transform 100ms linear 0s;-webkit-transform: rotate(90deg);-ms-transform: rotate(90deg);transform: rotate(90deg);";
 
   var statisticCookieTextContent = document.createElement("span");
   statisticCookieTextContent.textContent = TEXT.statisticCookie.title[language];
@@ -354,19 +360,19 @@
 
   var statisticCookieHeader = document.createElement("div");
   statisticCookieHeader.style.cssText =
-    "display:flex;align-items:center;font-size:14px;";
+    "font-size:14px;display: -webkit-box;display: -ms-flexbox;display:flex;-webkit-box-align: center;-ms-flex-align: center;align-items:center;";
   statisticCookieHeader.appendChild(statisticCookieCarret);
   statisticCookieHeader.appendChild(statisticCookieTextContent);
 
   var statisticCookieText = document.createElement("a");
   statisticCookieText.style.cssText =
-    "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
+    "width:70%;display: -webkit-box;display: -ms-flexbox;-webkit-box-orient: vertical;-webkit-box-direction: normal;-ms-flex-direction: column;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   statisticCookieText.appendChild(statisticCookieHeader);
   statisticCookieText.appendChild(statisticCookieDetail);
 
   var statisticCookie = document.createElement("div");
   statisticCookie.style.cssText =
-    "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
+    "margin:16px 0;display: -webkit-box;display: -ms-flexbox;-webkit-box-align: baseline;-ms-flex-align: baseline;-ms-flex-pack: distribute;-ms-flex-wrap: wrap;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   statisticCookie.appendChild(statisticCookieText);
   statisticCookie.appendChild(optionSelector("statistics"));
   statisticCookieText.onclick = function () {
@@ -379,15 +385,15 @@
 
   var adCookieDetail = document.createElement("div");
   adCookieDetail.style.cssText =
-    "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
+    "-ms-flex-preferred-size: 100%;flex-basis: 100%;font-weight: normal;margin-top: 8px;overflow: hidden;-webkit-transition: max-height 300ms ease-out 0s;-o-transition: max-height 300ms ease-out 0s;transition: max-height 300ms ease-out 0s;max-height: 0px;";
   adCookieDetail.textContent = TEXT.adCookie.detail[language];
 
   var adCookieCarret = document.createElement("span");
   adCookieCarret.textContent = "^";
   adCookieCarret.style.cssText =
-    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: " +
+    "font-size: 30px;font-family: monospace;color: " +
     color +
-    ";height:20px;line-height:30px;transition:transform 100ms linear 0s;";
+    ";height:20px;line-height:30px;-webkit-transition: -webkit-transform 100ms linear 0s;transition: -webkit-transform 100ms linear 0s;-o-transition: transform 100ms linear 0s;transition: transform 100ms linear 0s;transition: transform 100ms linear 0s, -webkit-transform 100ms linear 0s;-webkit-transform: rotate(90deg);-ms-transform: rotate(90deg);transform: rotate(90deg);";
 
   var adCookieTextContent = document.createElement("span");
   adCookieTextContent.textContent = TEXT.adCookie.title[language];
@@ -395,19 +401,19 @@
 
   var adCookieHeader = document.createElement("div");
   adCookieHeader.style.cssText =
-    "display:flex;align-items:center;font-size:14px;";
+    "font-size:14px;display: -webkit-box;display: -ms-flexbox;display:flex;-webkit-box-align: center;-ms-flex-align: center;align-items:center;";
   adCookieHeader.appendChild(adCookieCarret);
   adCookieHeader.appendChild(adCookieTextContent);
 
   var adCookieText = document.createElement("a");
   adCookieText.style.cssText =
-    "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
+    "width:70%;display: -webkit-box;display: -ms-flexbox;-webkit-box-orient: vertical;-webkit-box-direction: normal;-ms-flex-direction: column;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   adCookieText.appendChild(adCookieHeader);
   adCookieText.appendChild(adCookieDetail);
 
   var adCookie = document.createElement("div");
   adCookie.style.cssText =
-    "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
+    "margin:16px 0;display: -webkit-box;display: -ms-flexbox;-webkit-box-align: baseline;-ms-flex-align: baseline;-ms-flex-pack: distribute;-ms-flex-wrap: wrap;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   adCookie.appendChild(adCookieText);
   adCookie.appendChild(optionSelector("personnalization"));
   adCookieText.onclick = function () {
@@ -416,15 +422,15 @@
 
   var adStatisticCookieDetail = document.createElement("div");
   adStatisticCookieDetail.style.cssText =
-    "flex-basis: 100%;font-weight:normal;margin-top:8px;overflow:hidden;max-height:0;transition:max-height 300ms ease-out 0s;";
+    "-ms-flex-preferred-size: 100%;flex-basis: 100%;font-weight: normal;margin-top: 8px;overflow: hidden;-webkit-transition: max-height 300ms ease-out 0s;-o-transition: max-height 300ms ease-out 0s;transition: max-height 300ms ease-out 0s;max-height: 0px;";
   adStatisticCookieDetail.textContent = TEXT.adStatisticCookie.detail[language];
 
   var adStatisticCarret = document.createElement("span");
   adStatisticCarret.textContent = "^";
   adStatisticCarret.style.cssText =
-    "transform: rotate(90deg);font-size: 30px;font-family: monospace;color: " +
+    "font-size: 30px;font-family: monospace;color: " +
     color +
-    ";height:20px;line-height:30px;transition:transform 100ms linear 0s;";
+    ";height:20px;line-height:30px;-webkit-transition: -webkit-transform 100ms linear 0s;transition: -webkit-transform 100ms linear 0s;-o-transition: transform 100ms linear 0s;transition: transform 100ms linear 0s;transition: transform 100ms linear 0s, -webkit-transform 100ms linear 0s;-webkit-transform: rotate(90deg);-ms-transform: rotate(90deg);transform: rotate(90deg);";
 
   var adStatisticTextContent = document.createElement("span");
   adStatisticTextContent.textContent = TEXT.adStatisticCookie.title[language];
@@ -432,19 +438,19 @@
 
   var adStatisticCookieHeader = document.createElement("div");
   adStatisticCookieHeader.style.cssText =
-    "display:flex;align-items:center;font-size:14px;";
+    "font-size:14px;display: -webkit-box;display: -ms-flexbox;display:flex;-webkit-box-align: center;-ms-flex-align: center;align-items:center;";
   adStatisticCookieHeader.appendChild(adStatisticCarret);
   adStatisticCookieHeader.appendChild(adStatisticTextContent);
 
   var adStatisticCookieText = document.createElement("a");
   adStatisticCookieText.style.cssText =
-    "width:70%;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
+    "width:70%;display: -webkit-box;display: -ms-flexbox;-webkit-box-orient: vertical;-webkit-box-direction: normal;-ms-flex-direction: column;display:flex;cursor:pointer;flex-direction:column;color:inherit;text-decoration:none;";
   adStatisticCookieText.appendChild(adStatisticCookieHeader);
   adStatisticCookieText.appendChild(adStatisticCookieDetail);
 
   var adStatisticCookie = document.createElement("div");
   adStatisticCookie.style.cssText =
-    "margin:16px 0;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
+    "margin:16px 0;display: -webkit-box;display: -ms-flexbox;-webkit-box-align: baseline;-ms-flex-align: baseline;-ms-flex-pack: distribute;-ms-flex-wrap: wrap;display:flex;align-items:baseline;justify-content:space-around;font-weight:bold;flex-wrap:wrap;";
   adStatisticCookie.appendChild(adStatisticCookieText);
   adStatisticCookie.appendChild(optionSelector("marketing"));
   adStatisticCookieText.onclick = function () {
@@ -475,7 +481,9 @@
   var bannerContentMobileCss =
     window.screen.width < 1024 ? "flex-direction:column" : "";
   bannerContent.style.cssText =
-    "display:flex;align-items:center;" + bannerContentMobileCss + ";";
+    "display: -webkit-box;display: -ms-flexbox;-webkit-box-align: center;-ms-flex-align: center;display:flex;align-items:center;" +
+    bannerContentMobileCss +
+    ";";
 
   var text = document.createElement("div");
   text.textContent =
@@ -498,7 +506,9 @@
       ? "flex-direction:column;align-items:center"
       : "";
   buttonContainer.style.cssText =
-    "display:flex;" + buttonContainerMobileCss + ";";
+    "display: -webkit-box;display: -ms-flexbox;display:flex;" +
+    buttonContainerMobileCss +
+    ";";
 
   var refuseButtonContainer = document.createElement("div");
   var refuseButton = document.createElement("button");
